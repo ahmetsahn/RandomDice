@@ -397,8 +397,8 @@ MonoBehaviour:
   upgradeLevelText: {fileID: 899006457}
   upgradeCostText: {fileID: 1606391704}
   buttonClickSoundData:
-    clip: {fileID: 0}
-    mixerGroup: {fileID: 0}
+    clip: {fileID: 8300000, guid: 3ee47038bdfd8c54292e451eab23761b, type: 3}
+    mixerGroup: {fileID: 3609905348827210527, guid: 0648aff6a08d3f0468df28399773aba6, type: 2}
     loop: 0
     playOnAwake: 0
     frequentSound: 0
@@ -1757,8 +1757,8 @@ MonoBehaviour:
   upgradeLevelText: {fileID: 1199846448}
   upgradeCostText: {fileID: 316411002}
   buttonClickSoundData:
-    clip: {fileID: 0}
-    mixerGroup: {fileID: 0}
+    clip: {fileID: 8300000, guid: 3ee47038bdfd8c54292e451eab23761b, type: 3}
+    mixerGroup: {fileID: 3609905348827210527, guid: 0648aff6a08d3f0468df28399773aba6, type: 2}
     loop: 0
     playOnAwake: 0
     frequentSound: 0
@@ -2546,8 +2546,8 @@ MonoBehaviour:
   upgradeLevelText: {fileID: 879971855}
   upgradeCostText: {fileID: 1175775758}
   buttonClickSoundData:
-    clip: {fileID: 0}
-    mixerGroup: {fileID: 0}
+    clip: {fileID: 8300000, guid: 3ee47038bdfd8c54292e451eab23761b, type: 3}
+    mixerGroup: {fileID: 3609905348827210527, guid: 0648aff6a08d3f0468df28399773aba6, type: 2}
     loop: 0
     playOnAwake: 0
     frequentSound: 0
@@ -5609,8 +5609,8 @@ MonoBehaviour:
   upgradeLevelText: {fileID: 677833578}
   upgradeCostText: {fileID: 135290821}
   buttonClickSoundData:
-    clip: {fileID: 0}
-    mixerGroup: {fileID: 0}
+    clip: {fileID: 8300000, guid: 3ee47038bdfd8c54292e451eab23761b, type: 3}
+    mixerGroup: {fileID: 3609905348827210527, guid: 0648aff6a08d3f0468df28399773aba6, type: 2}
     loop: 0
     playOnAwake: 0
     frequentSound: 0
@@ -6192,8 +6192,8 @@ MonoBehaviour:
   upgradeLevelText: {fileID: 670499041}
   upgradeCostText: {fileID: 467830272}
   buttonClickSoundData:
-    clip: {fileID: 0}
-    mixerGroup: {fileID: 0}
+    clip: {fileID: 8300000, guid: 3ee47038bdfd8c54292e451eab23761b, type: 3}
+    mixerGroup: {fileID: 3609905348827210527, guid: 0648aff6a08d3f0468df28399773aba6, type: 2}
     loop: 0
     playOnAwake: 0
     frequentSound: 0

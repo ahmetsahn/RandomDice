@@ -49,6 +49,26 @@ namespace Runtime.SpawnerSystem
             _signalBus.Subscribe<SpawnDefenderRandomLocationSignal>(SpawnDefenderRandomLocation);
             _signalBus.Subscribe<SpawnMergedDefenderSignal>(SpawnMergedDefender);
         }
+        
+        private void AddToEmptyDefenderSpawnSlotList(Vector3 position)
+        {
+            _emptyDefenderSpawnSlotList.Add(position);
+            
+            if(_emptyDefenderSpawnSlotList.Count == 1)
+            {
+                _signalBus.Fire(new IsDefenderSpawnSlotListFullSignal(false));
+            }
+        }
+        
+        private void RemoveFromEmptyDefenderSpawnSlotList(int index)
+        {
+            _emptyDefenderSpawnSlotList.RemoveAt(index);
+            
+            if(_emptyDefenderSpawnSlotList.Count == 0)
+            {
+                _signalBus.Fire(new IsDefenderSpawnSlotListFullSignal(true));
+            }
+        }
 
         private void SpawnDefenderRandomLocation()
         {
@@ -59,7 +79,7 @@ namespace Runtime.SpawnerSystem
             
             int randomIndex = Random.Range(0, _emptyDefenderSpawnSlotList.Count);
             Vector3 randomSpawnPoint = _emptyDefenderSpawnSlotList[randomIndex];
-            _emptyDefenderSpawnSlotList.RemoveAt(randomIndex);
+            RemoveFromEmptyDefenderSpawnSlotList(randomIndex);
             IDefender defender = SpawnRandomDefender(randomSpawnPoint);
             defender.SetDefaultLevelEvent?.Invoke();
             
@@ -98,7 +118,7 @@ namespace Runtime.SpawnerSystem
         {
             IDefender defender = SpawnRandomDefender(signal.MergedDefender.InitialPosition);
             defender.LevelUpEvent?.Invoke(signal.MergingDefender.Level);
-            _emptyDefenderSpawnSlotList.Add(signal.MergingDefender.InitialPosition);
+            AddToEmptyDefenderSpawnSlotList(signal.MergingDefender.InitialPosition);
         }
         
         private void UnsubscribeEvents()

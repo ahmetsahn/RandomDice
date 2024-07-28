@@ -22,14 +22,16 @@ namespace Runtime.UISystem
         [SerializeField]
         private GameObject[] healthIcons;
         
+        [SerializeField]
+        private SoundData buttonClickSoundData;
+        
         private int _healthIconCount;
         private int _currentEnergy;
         private int _requiredEnergyForSpawnDefender;
         
-        private SignalBus _signalBus;
+        private bool _isDefenderSpawnSlotListFull;
         
-        [SerializeField]
-        private SoundData buttonClickSoundData;
+        private SignalBus _signalBus;
         
         [Inject]
         private void Construct(SignalBus signalBus)
@@ -44,6 +46,7 @@ namespace Runtime.UISystem
             _requiredEnergyForSpawnDefender = 10;
             currentEnergyText.text = _currentEnergy.ToString();
             requiredEnergyForSpawnDefenderText.text = _requiredEnergyForSpawnDefender.ToString();
+            _isDefenderSpawnSlotListFull = false;
         }
 
         private void OnEnable()
@@ -58,6 +61,8 @@ namespace Runtime.UISystem
             _signalBus.Subscribe<DestroyHealthIconSignal>(DestroyHealthIcon);
             _signalBus.Subscribe<IncreaseCurrentEnergySignal>(IncreaseCurrentEnergySignal);
             _signalBus.Subscribe<ReduceCurrentEnergySignal>(ReduceCurrentEnergySignal);
+            _signalBus.Subscribe<IsDefenderSpawnSlotListFullSignal>(IsDefenderSpawnSlotListFull);
+            _signalBus.Subscribe<UpdateSpawnDefenderButtonStateSignal>(UpdateSpawnDefenderButtonState);
         }
         
         private void OnStartButtonClicked()
@@ -75,9 +80,9 @@ namespace Runtime.UISystem
             SoundManager.Instance.CreateSoundBuilder().Play(buttonClickSoundData);
         }
         
-        private void UpdateCreateDefenderButtonState()
+        private void UpdateSpawnDefenderButtonState()
         {
-            createDefenderButton.interactable = _currentEnergy >= _requiredEnergyForSpawnDefender;
+            createDefenderButton.interactable = _currentEnergy >= _requiredEnergyForSpawnDefender && !_isDefenderSpawnSlotListFull;
         }
         
         private void IncreaseRequiredEnergy(int energyAmount)
@@ -90,7 +95,7 @@ namespace Runtime.UISystem
         {
             _currentEnergy += energyAmount;
             currentEnergyText.text = _currentEnergy.ToString();
-            UpdateCreateDefenderButtonState();
+            UpdateSpawnDefenderButtonState();
             _signalBus.Fire(new UpdateUpgradeDefenderButtonStateSignal(_currentEnergy));
         }
 
@@ -98,7 +103,7 @@ namespace Runtime.UISystem
         {
             _currentEnergy -= energyAmount;
             currentEnergyText.text = _currentEnergy.ToString();
-            UpdateCreateDefenderButtonState();
+            UpdateSpawnDefenderButtonState();
             _signalBus.Fire(new UpdateUpgradeDefenderButtonStateSignal(_currentEnergy));
         }
         
@@ -123,6 +128,11 @@ namespace Runtime.UISystem
             }
         }
         
+        private void IsDefenderSpawnSlotListFull(IsDefenderSpawnSlotListFullSignal signal)
+        {
+            _isDefenderSpawnSlotListFull = signal.IsFull;
+        }
+        
         private void UnsubscribeEvents()
         {
             startButton.onClick.RemoveListener(OnStartButtonClicked);
@@ -130,6 +140,8 @@ namespace Runtime.UISystem
             _signalBus.Unsubscribe<DestroyHealthIconSignal>(DestroyHealthIcon);
             _signalBus.Unsubscribe<IncreaseCurrentEnergySignal>(IncreaseCurrentEnergySignal);
             _signalBus.Unsubscribe<ReduceCurrentEnergySignal>(ReduceCurrentEnergySignal);
+            _signalBus.Unsubscribe<IsDefenderSpawnSlotListFullSignal>(IsDefenderSpawnSlotListFull);
+            _signalBus.Unsubscribe<UpdateSpawnDefenderButtonStateSignal>(UpdateSpawnDefenderButtonState);
         }
         
         private void OnDisable()

@@ -31,6 +31,8 @@ namespace Runtime.Core
             Container.DeclareSignal<UpdateNewDefenderUpgradeSignal>();
             Container.DeclareSignal<ReduceCurrentEnergySignal>();
             Container.DeclareSignal<UpdateUpgradeDefenderButtonStateSignal>();
+            Container.DeclareSignal<IsDefenderSpawnSlotListFullSignal>();
+            Container.DeclareSignal<UpdateSpawnDefenderButtonStateSignal>();
         }
     }
 }

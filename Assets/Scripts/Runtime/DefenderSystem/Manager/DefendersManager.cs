@@ -83,6 +83,7 @@ namespace Runtime.DefenderSystem.Manager
                         ObjectPoolManager.ReturnObjectToPool(signal.Defender.Transform.gameObject);
                         SetDefaultColor();
                         SoundManager.Instance.CreateSoundBuilder().Play(mergeSoundData);
+                        _signalBus.Fire(new UpdateSpawnDefenderButtonStateSignal());
                         return;
                     }
                 }
