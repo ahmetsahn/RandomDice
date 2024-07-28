@@ -1,5 +1,4 @@
-﻿using System;
-using AudioSystem;
+﻿using AudioSystem;
 using Runtime.Enum;
 using Runtime.Signal;
 using TMPro;

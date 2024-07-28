@@ -1,8 +1,5 @@
-﻿using System;
-using Runtime.Core.Pool;
-using Runtime.EnemySystem.Model;
+﻿using Runtime.Core.Pool;
 using Runtime.EnemySystem.View;
-using Runtime.Enum;
 using Runtime.Signal;
 using UnityEngine;
 using Zenject;

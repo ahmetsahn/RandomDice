@@ -1,5 +1,4 @@
-﻿using System;
-using Runtime.Core.Pool;
+﻿using Runtime.Core.Pool;
 using UnityEngine;
 
 namespace Runtime.Misc.Particle

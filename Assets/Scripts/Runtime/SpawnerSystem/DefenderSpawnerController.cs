@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Runtime.Core.Pool;
 using Runtime.DefenderSystem.View;
 using Runtime.Interface;
@@ -15,13 +14,13 @@ namespace Runtime.SpawnerSystem
         [SerializeField]
         private Transform emptyDefenderSpawnSlotParent;
         
-        private List<Vector3> _emptyDefenderSpawnSlotList;
-        
         [SerializeField]
         private DefenderViewModel[] defenderPrefabArray; 
         
         [SerializeField]
         private int[] weights;
+        
+        private List<Vector3> _emptyDefenderSpawnSlotList;
         
         private SignalBus _signalBus;
         
@@ -54,15 +53,13 @@ namespace Runtime.SpawnerSystem
         private void SpawnDefenderRandomLocation()
         {
             if (_emptyDefenderSpawnSlotList.Count == 0)
-            {
-                Debug.Log("No empty defender spawn point");
+            { 
                 return;
             }
             
             int randomIndex = Random.Range(0, _emptyDefenderSpawnSlotList.Count);
             Vector3 randomSpawnPoint = _emptyDefenderSpawnSlotList[randomIndex];
             _emptyDefenderSpawnSlotList.RemoveAt(randomIndex);
-
             IDefender defender = SpawnRandomDefender(randomSpawnPoint);
             defender.SetDefaultLevelEvent?.Invoke();
             

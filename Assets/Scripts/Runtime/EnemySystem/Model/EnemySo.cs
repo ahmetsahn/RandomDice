@@ -7,7 +7,7 @@ namespace Runtime.EnemySystem.Model
     {
         public float MaxHealth;
         public float Speed;
-        public float Scale;
+        public float DefaultScale;
         
         public int EnergyValue;
     }

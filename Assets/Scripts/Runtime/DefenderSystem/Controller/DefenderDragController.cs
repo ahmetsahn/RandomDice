@@ -1,5 +1,4 @@
-﻿using Runtime.DefenderSystem.Model;
-using Runtime.DefenderSystem.View;
+﻿using Runtime.DefenderSystem.View;
 using Runtime.Signal;
 using UnityEngine;
 using Zenject;

@@ -1,4 +1,5 @@
-﻿using Runtime.DefenderSystem.Model;
+﻿using System;
+using DG.Tweening;
 using Runtime.DefenderSystem.View;
 using UnityEngine;
 using Zenject;
@@ -9,18 +10,21 @@ namespace Runtime.DefenderSystem.Controller
     {
         private DefenderViewModel _viewModel;
         
-        private SignalBus _signalBus;
-        
         [Inject]
-        private void Construct(DefenderViewModel viewModel, SignalBus signalBus)
+        private void Construct(DefenderViewModel viewModel)
         {
             _viewModel = viewModel;
-            _signalBus = signalBus;
         }
         
         private void OnEnable()
         {
             SubscribeEvents();
+            SetDefaultScale();
+        }
+        
+        private void SetDefaultScale()
+        {
+            _viewModel.transform.DOScale(_viewModel.DefaultScale, 0.3f).SetEase(Ease.OutBack);
         }
         
         private void SubscribeEvents()
@@ -38,7 +42,7 @@ namespace Runtime.DefenderSystem.Controller
         {
             _viewModel.SpriteRenderer.color = _viewModel.UnMergeableColor;
         }
-        
+
         private void UnsubscribeEvents()
         {
             _viewModel.SetDefaultColorEvent -= OnMergeable;

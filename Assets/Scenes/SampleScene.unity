@@ -1325,11 +1325,11 @@ MonoBehaviour:
     - 1
     - 0.5
     - 0.5
-    SpawnCount: 32000000320000003200000032000000
     WaitingTimeBetweenEnemyTypes:
     - 5
     - 5
     - 5
+    SpawnCount: 32000000320000003200000032000000
     WaitingTimeAfterWaveEnds: 0
 --- !u!4 &440991679
 Transform:

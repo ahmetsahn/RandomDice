@@ -1,7 +1,5 @@
-﻿using System;
-using DG.Tweening;
+﻿using DG.Tweening;
 using Runtime.Core.Pool;
-using Runtime.EnemySystem.Model;
 using Runtime.EnemySystem.View;
 using Runtime.Signal;
 using UnityEngine;
@@ -21,6 +19,8 @@ namespace Runtime.EnemySystem.Controller
         
         private SignalBus _signalBus;
         
+        private const string PATH_PARENT_NAME = "Path";
+        
         [Inject]
         private void Construct(EnemyViewModel viewModel, SignalBus signalBus)
         {
@@ -35,7 +35,7 @@ namespace Runtime.EnemySystem.Controller
 
         private void SetPathArray()
         {
-            _pathArrayParent = GameObject.Find("Path").transform;
+            _pathArrayParent = GameObject.Find(PATH_PARENT_NAME).transform;
             
             _pathArray = new Vector3[_pathArrayParent.childCount];
 
@@ -47,14 +47,8 @@ namespace Runtime.EnemySystem.Controller
         
         private void OnEnable()
         {
-            SubscribeEvents();
             SetInitialPosition();
             Move();
-        }
-        
-        private void SubscribeEvents()
-        {
-            
         }
         
         private void SetInitialPosition()
@@ -83,15 +77,9 @@ namespace Runtime.EnemySystem.Controller
             KillMoveTween();
         }
         
-        private void UnsubscribeEvents()
-        {
-            
-        }
-        
         private void OnDisable()
         {
             Reset();
-            UnsubscribeEvents();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Runtime.Enum;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Runtime.DefenderSystem.Model
 {
@@ -9,9 +10,12 @@ namespace Runtime.DefenderSystem.Model
         public DefenderType DefenderType;
         
         public int Damage;
+        
         public float AttackInterval;
         public float BulletMoveDuration;
-        public float intervalReductionAmount;
+        public float IntervalReductionAmount;
+        public float DefaultScale;
+        
         
         public Color UnMergeableColor;
         public Color DefaultColor;

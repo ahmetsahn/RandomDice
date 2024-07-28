@@ -9,7 +9,6 @@ using Runtime.Misc;
 using Runtime.Signal;
 using UnityEngine;
 using Zenject;
-using Random = UnityEngine.Random;
 
 namespace Runtime.DefenderSystem.Controller
 {

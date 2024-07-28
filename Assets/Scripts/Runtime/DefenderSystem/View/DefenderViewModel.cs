@@ -13,6 +13,7 @@ namespace Runtime.DefenderSystem.View
     {
         [Header("View")]
         public SpriteRenderer SpriteRenderer;
+        
         public TextMeshProUGUI LevelText;
         
         [Header("Model")]
@@ -27,6 +28,8 @@ namespace Runtime.DefenderSystem.View
         public float BulletMoveDuration;
         [HideInInspector]
         public float IntervalReductionAmount;
+        [HideInInspector]
+        public float DefaultScale;
         
         [HideInInspector]
         public Color UnMergeableColor;
@@ -45,9 +48,7 @@ namespace Runtime.DefenderSystem.View
         public Action SetUnMergeableColorEvent { get; set; }
         
         public Action<int> LevelUpEvent { get; set; }
-        
         public Action<int> UpgradeDefenderEvent { get; set; }
-        
         public Action<int> UpgradeNewDefenderEvent { get; set; }
         
         private SignalBus _signalBus;
@@ -76,13 +77,15 @@ namespace Runtime.DefenderSystem.View
             UnMergeableColor = model.UnMergeableColor;
             DefaultColor = model.DefaultColor;
             BulletMoveDuration = model.BulletMoveDuration;
-            IntervalReductionAmount = model.intervalReductionAmount;
+            IntervalReductionAmount = model.IntervalReductionAmount;
+            DefaultScale = model.DefaultScale;
         }
 
         private void Reset()
         {
             Damage = model.Damage;
             AttackInterval = model.AttackInterval;
+            transform.localScale = Vector3.zero;
         }
         
         private void OnDisable()

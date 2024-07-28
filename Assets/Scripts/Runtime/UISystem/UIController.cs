@@ -1,6 +1,4 @@
-﻿using System;
-using AudioSystem;
-using Runtime.Enum;
+﻿using AudioSystem;
 using Runtime.Signal;
 using TMPro;
 using UnityEngine;
@@ -121,7 +119,6 @@ namespace Runtime.UISystem
             
             if (_healthIconCount == 0)
             {
-                Debug.Log("Game Over");
                 Time.timeScale = 0;
             }
         }

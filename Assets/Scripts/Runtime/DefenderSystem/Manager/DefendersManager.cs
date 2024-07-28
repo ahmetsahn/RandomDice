@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using AudioSystem;
 using DG.Tweening;
 using Runtime.Core.Pool;
-using Runtime.Enum;
 using Runtime.Interface;
 using Runtime.Signal;
 using UnityEngine;

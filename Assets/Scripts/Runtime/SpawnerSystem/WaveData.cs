@@ -8,9 +8,12 @@ namespace Runtime.SpawnerSystem
     public struct WaveData
     {
         public List<EnemyViewModel> Enemies;
+        
         public List<float> SpawnInterval;
-        public List<int> SpawnCount;
         public List<float> WaitingTimeBetweenEnemyTypes;
+        
+        public List<int> SpawnCount;
+        
         public int WaitingTimeAfterWaveEnds;
     }
 }

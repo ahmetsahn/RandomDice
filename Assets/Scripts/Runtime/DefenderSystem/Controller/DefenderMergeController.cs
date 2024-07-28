@@ -1,5 +1,4 @@
-﻿using Runtime.DefenderSystem.Model;
-using Runtime.DefenderSystem.View;
+﻿using Runtime.DefenderSystem.View;
 using UnityEngine;
 using Zenject;
 
@@ -17,28 +16,12 @@ namespace Runtime.DefenderSystem.Controller
 
         private void OnEnable()
         {
-            SubscribeEvents();
             SetLevelText();
-        }
-        
-        private void SubscribeEvents()
-        {
-            
         }
         
         private void SetLevelText()
         {
             _viewModel.LevelText.text = _viewModel.Level.ToString();
-        }
-        
-        private void Reset()
-        {
-            
-        }
-        
-        private void OnDisable()
-        {
-            Reset();
         }
     }
 }

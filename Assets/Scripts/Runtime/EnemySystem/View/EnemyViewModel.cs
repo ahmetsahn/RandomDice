@@ -1,6 +1,4 @@
 ﻿using System;
-using DG.Tweening;
-using Runtime.Core.Pool;
 using Runtime.EnemySystem.Model;
 using Runtime.Interface;
 using Runtime.Signal;
@@ -24,7 +22,7 @@ namespace Runtime.EnemySystem.View
         [HideInInspector]
         public float Speed;
         [HideInInspector]
-        public float Scale;
+        public float DefaultScale;
         
         [HideInInspector]
         public int EnergyValue;
@@ -32,6 +30,7 @@ namespace Runtime.EnemySystem.View
         private SignalBus _signalBus;
         
         public Transform Transform => transform;
+        
         public Action<int> OnTakeDamage { get; set; }
         
         [Inject]
@@ -54,7 +53,7 @@ namespace Runtime.EnemySystem.View
         {
             Health = data.MaxHealth;
             Speed = data.Speed;
-            Scale = data.Scale;
+            DefaultScale = data.DefaultScale;
             EnergyValue = data.EnergyValue;
             HealthText.text = Health.ToString();
         }

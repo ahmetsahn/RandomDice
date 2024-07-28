@@ -1,6 +1,4 @@
-﻿using Runtime.DefenderSystem.Model;
-using Runtime.DefenderSystem.View;
-using Runtime.Interface;
+﻿using Runtime.Interface;
 
 namespace Runtime.Signal
 {

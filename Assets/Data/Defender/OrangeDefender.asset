@@ -16,6 +16,7 @@ MonoBehaviour:
   Damage: 17
   AttackInterval: 0.4
   BulletMoveDuration: 0.1
-  intervalReductionAmount: 0.05
+  IntervalReductionAmount: 0
+  DefaultScale: 0.65
   UnMergeableColor: {r: 1, g: 1, b: 1, a: 0.3529412}
   DefaultColor: {r: 1, g: 1, b: 1, a: 1}

@@ -1,6 +1,4 @@
-﻿using System;
-using DG.Tweening;
-using Runtime.EnemySystem.Model;
+﻿using DG.Tweening;
 using Runtime.EnemySystem.View;
 using UnityEngine;
 using Zenject;
@@ -11,7 +9,6 @@ namespace Runtime.EnemySystem.Controller
     {
         private EnemyViewModel _viewModel;
         
-
         [Inject]
         private void Construct(EnemyViewModel viewModel)
         {
@@ -20,17 +17,22 @@ namespace Runtime.EnemySystem.Controller
 
         private void OnEnable()
         {
-            _viewModel.transform.DOScale(_viewModel.Scale, 0.3f).SetEase(Ease.OutBack);
+            SetDefaultScale();
         }
         
         private void SetDefaultScale()
+        {
+            _viewModel.transform.DOScale(_viewModel.DefaultScale, 0.3f).SetEase(Ease.OutBack);
+        }
+        
+        private void ResetScale()
         {
             transform.localScale = Vector3.zero;
         }
         
         private void Reset()
         {
-            SetDefaultScale();
+            ResetScale();
         }
         
         private void OnDisable()

@@ -1,5 +1,4 @@
-﻿using System;
-using DG.Tweening;
+﻿using DG.Tweening;
 using Runtime.Core.Pool;
 using TMPro;
 using UnityEngine;
@@ -21,10 +20,7 @@ namespace Runtime.Misc
             Sequence sequence = DOTween.Sequence();
             sequence.Append(transform.DOScale(0.1f, 1f));
             sequence.Join(transform.DOMoveY(transform.position.y + 0.5f, 0.5f));
-    
-            // Insert DOFade to start 0.25 seconds later
             sequence.Insert(0.35f, damageText.DOFade(0, 0.65f));
-
             sequence.OnComplete(() =>
             {
                 ObjectPoolManager.ReturnObjectToPool(gameObject);

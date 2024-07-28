@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using Runtime.Core.Pool;
-using Runtime.Interface;
 using Runtime.Signal;
 using UnityEngine;
 using Zenject;
@@ -23,10 +22,13 @@ namespace Runtime.SpawnerSystem
             SignalBus signalBus)
         {
             _signalBus = signalBus;
-            
+        }
+
+        private void OnEnable()
+        {
             SubscribeEvents();
         }
-        
+
         private void SubscribeEvents()
         {
             _signalBus.Subscribe<StartSpawnEnemySignal>(StartSpawnEnemySignal);
@@ -73,7 +75,7 @@ namespace Runtime.SpawnerSystem
             _signalBus.Unsubscribe<StartSpawnEnemySignal>(StartSpawnEnemySignal);
         }
 
-        public void Dispose()
+        private void OnDisable()
         {
             UnsubscribeEvents();
         }
