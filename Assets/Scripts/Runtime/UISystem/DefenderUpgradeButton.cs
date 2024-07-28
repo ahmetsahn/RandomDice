@@ -19,12 +19,17 @@ namespace Runtime.UISystem
         private TextMeshProUGUI upgradeCostText;
         
         [SerializeField]
+        private Image energyIcon;
+        
+        [SerializeField]
         private SoundData buttonClickSoundData;
         
         private Button _button;
         
         private int _upgradeLevel;
         private int _upgradeCost;
+        
+        private const int MAX_LEVEL = 5;
         
         private SignalBus _signalBus;
         
@@ -60,15 +65,20 @@ namespace Runtime.UISystem
         {
             _signalBus.Fire(new ReduceCurrentEnergySignal(_upgradeCost));
             _upgradeLevel++;
+            
+            if(_upgradeLevel == MAX_LEVEL)
+            {
+                _button.interactable = false;
+                upgradeLevelText.text = "Max";
+                upgradeCostText.text = "";
+                energyIcon.gameObject.SetActive(false);
+                return;
+            }
+            
             upgradeLevelText.text = "Lv " + _upgradeLevel;
             _upgradeCost += 100;
             upgradeCostText.text = _upgradeCost.ToString();
             _signalBus.Fire(new UpgradeDefenderSignal(defenderT, _upgradeLevel));
-            
-            if(_upgradeLevel == 5)
-            {
-                _button.interactable = false;
-            }
         }
         
         private void PlayAudioClip()
@@ -86,7 +96,7 @@ namespace Runtime.UISystem
 
         private void UpdateUpgradeDefenderButtonState(UpdateUpgradeDefenderButtonStateSignal signal)
         {
-            _button.interactable = signal.CurrentEnergy >= _upgradeCost;
+            _button.interactable = signal.CurrentEnergy >= _upgradeCost && _upgradeLevel < MAX_LEVEL;
         }
         
         private void UnsubscribeEvents()

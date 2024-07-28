@@ -396,6 +396,7 @@ MonoBehaviour:
   defenderType: 2
   upgradeLevelText: {fileID: 899006457}
   upgradeCostText: {fileID: 1606391704}
+  energyIcon: {fileID: 1358771460}
   buttonClickSoundData:
     clip: {fileID: 8300000, guid: 3ee47038bdfd8c54292e451eab23761b, type: 3}
     mixerGroup: {fileID: 3609905348827210527, guid: 0648aff6a08d3f0468df28399773aba6, type: 2}
@@ -1756,6 +1757,7 @@ MonoBehaviour:
   defenderType: 0
   upgradeLevelText: {fileID: 1199846448}
   upgradeCostText: {fileID: 316411002}
+  energyIcon: {fileID: 830226152}
   buttonClickSoundData:
     clip: {fileID: 8300000, guid: 3ee47038bdfd8c54292e451eab23761b, type: 3}
     mixerGroup: {fileID: 3609905348827210527, guid: 0648aff6a08d3f0468df28399773aba6, type: 2}
@@ -2545,6 +2547,7 @@ MonoBehaviour:
   defenderType: 3
   upgradeLevelText: {fileID: 879971855}
   upgradeCostText: {fileID: 1175775758}
+  energyIcon: {fileID: 1558010928}
   buttonClickSoundData:
     clip: {fileID: 8300000, guid: 3ee47038bdfd8c54292e451eab23761b, type: 3}
     mixerGroup: {fileID: 3609905348827210527, guid: 0648aff6a08d3f0468df28399773aba6, type: 2}
@@ -5608,6 +5611,7 @@ MonoBehaviour:
   defenderType: 1
   upgradeLevelText: {fileID: 677833578}
   upgradeCostText: {fileID: 135290821}
+  energyIcon: {fileID: 1765117029}
   buttonClickSoundData:
     clip: {fileID: 8300000, guid: 3ee47038bdfd8c54292e451eab23761b, type: 3}
     mixerGroup: {fileID: 3609905348827210527, guid: 0648aff6a08d3f0468df28399773aba6, type: 2}
@@ -6191,6 +6195,7 @@ MonoBehaviour:
   defenderType: 4
   upgradeLevelText: {fileID: 670499041}
   upgradeCostText: {fileID: 467830272}
+  energyIcon: {fileID: 1379440886}
   buttonClickSoundData:
     clip: {fileID: 8300000, guid: 3ee47038bdfd8c54292e451eab23761b, type: 3}
     mixerGroup: {fileID: 3609905348827210527, guid: 0648aff6a08d3f0468df28399773aba6, type: 2}
