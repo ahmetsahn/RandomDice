@@ -19,8 +19,6 @@ namespace Runtime.EnemySystem.View
         private EnemySo data;
         
         [HideInInspector]
-        public float Health;
-        [HideInInspector]
         public float Speed;
         [HideInInspector]
         public float DefaultScale;
@@ -30,6 +28,7 @@ namespace Runtime.EnemySystem.View
 
         private SignalBus _signalBus;
         
+        public int Health { get; set; }
         public Transform Transform => transform;
         
         public Action<int> TakeDamageEvent { get; set; }

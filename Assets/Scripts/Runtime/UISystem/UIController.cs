@@ -18,6 +18,8 @@ namespace Runtime.UISystem
         private TextMeshProUGUI currentEnergyText;
         [SerializeField]
         private TextMeshProUGUI requiredEnergyForSpawnDefenderText;
+        [SerializeField] 
+        private TextMeshProUGUI waveText;
         
         [SerializeField]
         private GameObject[] healthIcons;
@@ -28,6 +30,7 @@ namespace Runtime.UISystem
         private int _healthIconCount;
         private int _currentEnergy;
         private int _requiredEnergyForSpawnDefender;
+        private int _wave;
         
         private bool _isDefenderSpawnSlotListFull;
         
@@ -42,11 +45,13 @@ namespace Runtime.UISystem
         private void Awake()
         {
             _healthIconCount = healthIcons.Length;
-            _currentEnergy = 1000;
+            _currentEnergy = 100;
             _requiredEnergyForSpawnDefender = 10;
             currentEnergyText.text = _currentEnergy.ToString();
             requiredEnergyForSpawnDefenderText.text = _requiredEnergyForSpawnDefender.ToString();
             _isDefenderSpawnSlotListFull = false;
+            _wave = 1;
+            waveText.text = "Wave : " + _wave;
         }
 
         private void OnEnable()
@@ -63,6 +68,7 @@ namespace Runtime.UISystem
             _signalBus.Subscribe<ReduceCurrentEnergySignal>(ReduceCurrentEnergySignal);
             _signalBus.Subscribe<IsDefenderSpawnSlotListFullSignal>(IsDefenderSpawnSlotListFull);
             _signalBus.Subscribe<UpdateSpawnDefenderButtonStateSignal>(UpdateSpawnDefenderButtonState);
+            _signalBus.Subscribe<IncreaseWaveSignal>(IncreaseWave);
         }
         
         private void OnStartButtonClicked()
@@ -77,6 +83,7 @@ namespace Runtime.UISystem
             _signalBus.Fire<SpawnDefenderRandomLocationSignal>();
             ReduceCurrentEnergy(_requiredEnergyForSpawnDefender);
             IncreaseRequiredEnergy(10);
+            UpdateSpawnDefenderButtonState();
             SoundManager.Instance.CreateSoundBuilder().Play(buttonClickSoundData);
         }
         
@@ -103,7 +110,6 @@ namespace Runtime.UISystem
         {
             _currentEnergy -= energyAmount;
             currentEnergyText.text = _currentEnergy.ToString();
-            UpdateSpawnDefenderButtonState();
             _signalBus.Fire(new UpdateUpgradeDefenderButtonStateSignal(_currentEnergy));
         }
         
@@ -115,6 +121,7 @@ namespace Runtime.UISystem
         private void ReduceCurrentEnergySignal(ReduceCurrentEnergySignal signal)
         {
             ReduceCurrentEnergy(signal.EnergyAmount);
+            UpdateSpawnDefenderButtonState();
         }
         
         private void DestroyHealthIcon(DestroyHealthIconSignal signal)
@@ -133,6 +140,12 @@ namespace Runtime.UISystem
             _isDefenderSpawnSlotListFull = signal.IsFull;
         }
         
+        private void IncreaseWave(IncreaseWaveSignal signal)
+        {
+            _wave++;
+            waveText.text = "Wave : " + _wave;
+        }
+        
         private void UnsubscribeEvents()
         {
             startButton.onClick.RemoveListener(OnStartButtonClicked);
@@ -142,6 +155,7 @@ namespace Runtime.UISystem
             _signalBus.Unsubscribe<ReduceCurrentEnergySignal>(ReduceCurrentEnergySignal);
             _signalBus.Unsubscribe<IsDefenderSpawnSlotListFullSignal>(IsDefenderSpawnSlotListFull);
             _signalBus.Unsubscribe<UpdateSpawnDefenderButtonStateSignal>(UpdateSpawnDefenderButtonState);
+            _signalBus.Unsubscribe<IncreaseWaveSignal>(IncreaseWave);
         }
         
         private void OnDisable()

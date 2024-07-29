@@ -6,10 +6,11 @@ namespace Runtime.EnemySystem.Model
     [CreateAssetMenu(fileName = "EnemyData", menuName = "Scriptable Object/EnemyData", order = 0)]
     public class EnemySo : ScriptableObject
     {
-        public float MaxHealth;
+        public int MaxHealth;
+        public int EnergyValue;
+        
         public float Speed;
         public float DefaultScale;
         
-        public int EnergyValue;
     }
 }

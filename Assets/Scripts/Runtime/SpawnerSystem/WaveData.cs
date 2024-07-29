@@ -9,13 +9,15 @@ namespace Runtime.SpawnerSystem
     {
         public List<EnemyViewModel> Enemies;
         
+        public List<int> SpawnCount;
+        
         public List<float> SpawnInterval;
         public List<float> WaitingTimeBetweenEnemyTypes;
         
-        public List<int> SpawnCount;
+        public float WaitingTimeBossSpawn;
+        
+        public EnemyViewModel Boss;
         
         public int WaitingTimeAfterWaveEnds;
-
-        public EnemyViewModel Boss;
     }
 }

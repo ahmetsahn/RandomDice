@@ -54,9 +54,12 @@ namespace Runtime.SpawnerSystem
             foreach (WaveData waveData in waveDataList)
             {
                 await SpawnEnemyWithAsync(waveData);
+                await UniTask.Delay(TimeSpan.FromSeconds(waveData.WaitingTimeBossSpawn));
                 _signalBus.Fire(new BossSequenceSignal(waveData.Boss));
                 await new WaitUntil(() => _bossIsDead);
                 await UniTask.Delay(TimeSpan.FromSeconds(waveData.WaitingTimeAfterWaveEnds));
+                _signalBus.Fire(new IncreaseWaveSignal());
+                _bossIsDead = false;
             }
         }
 

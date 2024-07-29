@@ -100,9 +100,12 @@ namespace Runtime.EnemySystem.Manager
             _signalBus.Fire(new StopDefenderAttackSignal());
             _signalBus.Fire(new IsEnemyMoveableSignal(false));
             
+            int enemiesTotalHealth = 0;
+            
             foreach (var enemy in _enemyList)
             {
                 enemy.Transform.DOMove(bossFirstTransform.position, 1f);
+                enemiesTotalHealth += enemy.Health;
             }
 
             await UniTask.Delay(TimeSpan.FromSeconds(1f));
@@ -117,7 +120,8 @@ namespace Runtime.EnemySystem.Manager
             _signalBus.Fire(new StopDefenderAttackSignal());
             
             bossGo.transform.position = bossFirstTransform.position;
-            IEnemy boss = bossGo.GetComponent<IEnemy>();
+            IBoss boss = bossGo.GetComponent<IBoss>();
+            boss.SetHealthEvent?.Invoke(enemiesTotalHealth);
             
             await UniTask.Delay(TimeSpan.FromSeconds(1f));
             boss.Transform.DOMove(enemyFirstTransform.position, 1f);

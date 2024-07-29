@@ -37,6 +37,7 @@ namespace Runtime.Core
             Container.DeclareSignal<BossDeadSignal>();
             Container.DeclareSignal<IsEnemyMoveableSignal>();
             Container.DeclareSignal<SetDamagePopupTextSignal>();
+            Container.DeclareSignal<IncreaseWaveSignal>();
         }
     }
 }
