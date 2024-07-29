@@ -53,6 +53,8 @@ namespace Runtime.SpawnerSystem
         {
             foreach (WaveData waveData in waveDataList)
             {
+                float totalSecond = waveData.SpawnCount[_currentWaveIndex] * waveData.SpawnInterval[_currentWaveIndex] + waveData.WaitingTimeBossSpawn;
+                _signalBus.Fire(new ResumeTimerSignal(totalSecond));
                 await SpawnEnemyWithAsync(waveData);
                 await UniTask.Delay(TimeSpan.FromSeconds(waveData.WaitingTimeBossSpawn));
                 _signalBus.Fire(new BossSequenceSignal(waveData.Boss));

@@ -38,6 +38,8 @@ namespace Runtime.Core
             Container.DeclareSignal<IsEnemyMoveableSignal>();
             Container.DeclareSignal<SetDamagePopupTextSignal>();
             Container.DeclareSignal<IncreaseWaveSignal>();
+            Container.DeclareSignal<ResumeTimerSignal>();
+            
         }
     }
 }
