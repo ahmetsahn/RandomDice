@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: SquareEnemy
   m_EditorClassIdentifier: 
   MaxHealth: 100
+  EnergyValue: 10
   Speed: 0.5
   DefaultScale: 0.6
-  EnergyValue: 20
