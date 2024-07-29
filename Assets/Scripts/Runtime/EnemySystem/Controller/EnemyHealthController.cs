@@ -26,7 +26,7 @@ namespace Runtime.EnemySystem.Controller
         
         private void SubscribeEvents()
         {
-            _viewModel.OnTakeDamage += TakeDamage;
+            _viewModel.TakeDamageEvent += TakeDamage;
         }
         
         private void TakeDamage(int damage)
@@ -43,7 +43,7 @@ namespace Runtime.EnemySystem.Controller
         
         private void UnsubscribeEvents()
         {
-            _viewModel.OnTakeDamage -= TakeDamage;
+            _viewModel.TakeDamageEvent -= TakeDamage;
         }
         
         private void OnDisable()

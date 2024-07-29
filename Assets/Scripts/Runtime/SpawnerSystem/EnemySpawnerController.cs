@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using Runtime.Core.Pool;
 using Runtime.Signal;
 using UnityEngine;
@@ -13,9 +14,17 @@ namespace Runtime.SpawnerSystem
         private SignalBus _signalBus;
         
         [SerializeField]
+        private Transform enemyFirstSpawnTransform;
+        
+        [SerializeField] 
+        private Transform bossSpawnTransform;
+        
+        [SerializeField]
         private List<WaveData> waveDataList;
         
         private int _currentWaveIndex;
+        
+        private bool _bossIsDead;
         
         [Inject]
         private void Construct(
@@ -32,6 +41,7 @@ namespace Runtime.SpawnerSystem
         private void SubscribeEvents()
         {
             _signalBus.Subscribe<StartSpawnEnemySignal>(StartSpawnEnemySignal);
+            _signalBus.Subscribe<BossDeadSignal>(BossDead);
         }
         
         private void StartSpawnEnemySignal(StartSpawnEnemySignal signal)
@@ -44,6 +54,8 @@ namespace Runtime.SpawnerSystem
             foreach (WaveData waveData in waveDataList)
             {
                 await SpawnEnemyWithAsync(waveData);
+                _signalBus.Fire(new BossSequenceSignal(waveData.Boss));
+                await new WaitUntil(() => _bossIsDead);
                 await UniTask.Delay(TimeSpan.FromSeconds(waveData.WaitingTimeAfterWaveEnds));
             }
         }
@@ -66,13 +78,17 @@ namespace Runtime.SpawnerSystem
                 float extraWaitTime = waveData.WaitingTimeBetweenEnemyTypes[i];
                 await UniTask.Delay(TimeSpan.FromSeconds(extraWaitTime));
             }
-
-            await UniTask.Delay(TimeSpan.FromSeconds(waveData.WaitingTimeAfterWaveEnds));
+        }
+        
+        private void BossDead(BossDeadSignal signal)
+        {
+            _bossIsDead = true;
         }
 
         private void UnsubscribeEvents()
         {
             _signalBus.Unsubscribe<StartSpawnEnemySignal>(StartSpawnEnemySignal);
+            _signalBus.Unsubscribe<BossDeadSignal>(BossDead);
         }
 
         private void OnDisable()

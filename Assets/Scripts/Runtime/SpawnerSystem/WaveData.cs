@@ -15,5 +15,7 @@ namespace Runtime.SpawnerSystem
         public List<int> SpawnCount;
         
         public int WaitingTimeAfterWaveEnds;
+
+        public EnemyViewModel Boss;
     }
 }

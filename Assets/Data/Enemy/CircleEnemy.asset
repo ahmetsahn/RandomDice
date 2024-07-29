@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cafd3a66952d4366b8879e76875bda9a, type: 3}
   m_Name: CircleEnemy
   m_EditorClassIdentifier: 
-  MaxHealth: 200
+  MaxHealth: 1000
   Speed: 0.5
-  DefaultScale: 0.6
-  EnergyValue: 40
+  DefaultScale: 1
+  EnergyValue: 200

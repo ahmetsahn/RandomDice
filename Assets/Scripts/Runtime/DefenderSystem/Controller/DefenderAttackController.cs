@@ -32,6 +32,8 @@ namespace Runtime.DefenderSystem.Controller
         [SerializeField]
         private SoundData attackSoundData;
         
+        private bool _isBossSequenceRunning;
+        
         [Inject]
         private void Construct(DefenderViewModel viewModel, SignalBus signalBus)
         {
@@ -47,8 +49,9 @@ namespace Runtime.DefenderSystem.Controller
         
         private void SubscribeEvents()
         {
-            _signalBus.Subscribe<EnemyListEmptySignal>(StopAttack);
+            _signalBus.Subscribe<StopDefenderAttackSignal>(StopAttack);
             _signalBus.Subscribe<StartDefenderAttackSignal>(StartDefenderAttack);
+            _signalBus.Subscribe<BossSequenceSignal>(StopAttack);
         }
 
         private void StartDefenderAttack(StartDefenderAttackSignal signal)
@@ -71,16 +74,11 @@ namespace Runtime.DefenderSystem.Controller
                     CreateDamagePopup(signal.Enemy.Transform, _viewModel.Damage);
                     SoundManager.Instance.CreateSoundBuilder().WithRandomPitch().WithPosition(bullet.transform.position).Play(attackSoundData);
                     ObjectPoolManager.ReturnObjectToPool(bullet);
-                    signal.Enemy.OnTakeDamage?.Invoke(_viewModel.Damage);
+                    signal.Enemy.TakeDamageEvent?.Invoke(_viewModel.Damage);
                 });
 
                 await UniTask.Delay(TimeSpan.FromSeconds(_viewModel.AttackInterval), cancellationToken: attackCancellationTokenSource);
             }
-        }
-        
-        private void StopAttack()
-        {
-            _attackCancellationTokenSource.Cancel();
         }
         
         private void CreateBulletHitParticle(Transform target)
@@ -92,15 +90,20 @@ namespace Runtime.DefenderSystem.Controller
         {
             Vector3 targetPosition = target.position;
             targetPosition.y += 0.5f;
-            GameObject damagePopupGo = ObjectPoolManager.SpawnObject(damagePopupPrefab, targetPosition, Quaternion.identity);
-            damagePopupGo.GetComponent<DamagePopup>().SetDamage(damage);
-            damagePopupGo.GetComponent<DamagePopup>().StartSequence();
+            ObjectPoolManager.SpawnObjectWithZenject(damagePopupPrefab, targetPosition, Quaternion.identity);
+            _signalBus.Fire(new SetDamagePopupTextSignal(damage));
+        }
+        
+        private void StopAttack()
+        {
+            _attackCancellationTokenSource.Cancel();
         }
         
         private void UnsubscribeEvents()
         {
-            _signalBus.Unsubscribe<EnemyListEmptySignal>(StopAttack);
+            _signalBus.Unsubscribe<StopDefenderAttackSignal>(StopAttack);
             _signalBus.Unsubscribe<StartDefenderAttackSignal>(StartDefenderAttack);
+            _signalBus.Unsubscribe<BossSequenceSignal>(StopAttack);
         }
         
         private void OnDisable()

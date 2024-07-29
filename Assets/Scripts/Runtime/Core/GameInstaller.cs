@@ -24,7 +24,7 @@ namespace Runtime.Core
             Container.DeclareSignal<AddEnemyToListSignal>();
             Container.DeclareSignal<RemoveEnemyFromListSignal>();
             Container.DeclareSignal<StartDefenderAttackSignal>();
-            Container.DeclareSignal<EnemyListEmptySignal>();
+            Container.DeclareSignal<StopDefenderAttackSignal>();
             Container.DeclareSignal<SetNewDefenderAttackTargetSignal>();
             Container.DeclareSignal<IncreaseCurrentEnergySignal>();
             Container.DeclareSignal<UpgradeDefenderSignal>();
@@ -33,6 +33,10 @@ namespace Runtime.Core
             Container.DeclareSignal<UpdateUpgradeDefenderButtonStateSignal>();
             Container.DeclareSignal<IsDefenderSpawnSlotListFullSignal>();
             Container.DeclareSignal<UpdateSpawnDefenderButtonStateSignal>();
+            Container.DeclareSignal<BossSequenceSignal>();
+            Container.DeclareSignal<BossDeadSignal>();
+            Container.DeclareSignal<IsEnemyMoveableSignal>();
+            Container.DeclareSignal<SetDamagePopupTextSignal>();
         }
     }
 }

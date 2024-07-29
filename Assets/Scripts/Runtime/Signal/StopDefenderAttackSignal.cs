@@ -1,6 +1,6 @@
 ﻿namespace Runtime.Signal
 {
-    public readonly struct EnemyListEmptySignal
+    public readonly struct StopDefenderAttackSignal
     {
         
     }

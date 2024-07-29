@@ -19,7 +19,7 @@ namespace Runtime.EnemySystem.Controller
         
         private SignalBus _signalBus;
         
-        private const string PATH_PARENT_NAME = "Path";
+        private const string PATH_PARENT_NAME = "EnemyPath";
         
         [Inject]
         private void Construct(EnemyViewModel viewModel, SignalBus signalBus)
@@ -47,8 +47,14 @@ namespace Runtime.EnemySystem.Controller
         
         private void OnEnable()
         {
+            SubscribeEvents();
             SetInitialPosition();
             Move();
+        }
+        
+        private void SubscribeEvents()
+        {
+            _signalBus.Subscribe<IsEnemyMoveableSignal>(IsEnemyMoveable);
         }
         
         private void SetInitialPosition()
@@ -67,6 +73,19 @@ namespace Runtime.EnemySystem.Controller
             });
         }
         
+        private void IsEnemyMoveable(IsEnemyMoveableSignal signal)
+        {
+            if (!signal.IsMoveable)
+            {
+                KillMoveTween();
+            }
+            
+            else
+            {
+                Move();
+            }
+        }
+        
         private void KillMoveTween()
         {
             _moveTween.Kill();
@@ -77,8 +96,14 @@ namespace Runtime.EnemySystem.Controller
             KillMoveTween();
         }
         
+        private void UnsubscribeEvents()
+        {
+            _signalBus.Unsubscribe<IsEnemyMoveableSignal>(IsEnemyMoveable);
+        }
+        
         private void OnDisable()
         {
+            UnsubscribeEvents();
             Reset();
         }
     }

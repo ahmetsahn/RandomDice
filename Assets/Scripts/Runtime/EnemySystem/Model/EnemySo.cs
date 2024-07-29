@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Runtime.Enum;
+using UnityEngine;
 
 namespace Runtime.EnemySystem.Model
 {

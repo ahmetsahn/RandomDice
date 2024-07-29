@@ -1,5 +1,6 @@
 ﻿using System;
 using Runtime.EnemySystem.Model;
+using Runtime.Enum;
 using Runtime.Interface;
 using Runtime.Signal;
 using TMPro;
@@ -31,7 +32,7 @@ namespace Runtime.EnemySystem.View
         
         public Transform Transform => transform;
         
-        public Action<int> OnTakeDamage { get; set; }
+        public Action<int> TakeDamageEvent { get; set; }
         
         [Inject]
         public void Construct(SignalBus signalBus)

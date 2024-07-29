@@ -648,7 +648,7 @@ GameObject:
   m_Component:
   - component: {fileID: 213980275}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: EnemyFirstTransform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -891,7 +891,7 @@ GameObject:
   m_Component:
   - component: {fileID: 291340309}
   m_Layer: 0
-  m_Name: Path
+  m_Name: EnemyPath
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1315,23 +1315,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 459ed300d40f4e76beb274b7694c4b0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyFirstSpawnTransform: {fileID: 213980275}
+  bossSpawnTransform: {fileID: 864511478}
   waveDataList:
   - Enemies:
     - {fileID: 6508538475287531172, guid: 811c869aa27855746a059386c819f5d4, type: 3}
-    - {fileID: 6508538475287531172, guid: defe98ca7e6c4de4082580c946406ae4, type: 3}
-    - {fileID: 6508538475287531172, guid: 811c869aa27855746a059386c819f5d4, type: 3}
-    - {fileID: 6508538475287531172, guid: defe98ca7e6c4de4082580c946406ae4, type: 3}
     SpawnInterval:
     - 1
+    WaitingTimeBetweenEnemyTypes: []
+    SpawnCount: 05000000
+    WaitingTimeAfterWaveEnds: 3
+    Boss: {fileID: 6508538475287531172, guid: defe98ca7e6c4de4082580c946406ae4, type: 3}
+  - Enemies:
+    - {fileID: 6508538475287531172, guid: 811c869aa27855746a059386c819f5d4, type: 3}
+    SpawnInterval:
     - 1
-    - 0.5
-    - 0.5
-    WaitingTimeBetweenEnemyTypes:
-    - 5
-    - 5
-    - 5
-    SpawnCount: 32000000320000003200000032000000
-    WaitingTimeAfterWaveEnds: 0
+    WaitingTimeBetweenEnemyTypes: []
+    SpawnCount: 05000000
+    WaitingTimeAfterWaveEnds: 1
+    Boss: {fileID: 6508538475287531172, guid: defe98ca7e6c4de4082580c946406ae4, type: 3}
 --- !u!4 &440991679
 Transform:
   m_ObjectHideFlags: 0
@@ -3119,6 +3121,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 863288479}
   m_CullTransparentMesh: 1
+--- !u!1 &864511477
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 864511478}
+  m_Layer: 0
+  m_Name: BossFirstTransform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &864511478
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 864511477}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 3.829, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2064952429}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &879971853
 GameObject:
   m_ObjectHideFlags: 0
@@ -6505,6 +6538,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c643fb547d849abbd3b116da718796e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bossFirstTransform: {fileID: 864511478}
+  enemyFirstTransform: {fileID: 213980275}
 --- !u!4 &2064952429
 Transform:
   m_ObjectHideFlags: 0
@@ -6517,7 +6552,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 864511478}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2068482198
