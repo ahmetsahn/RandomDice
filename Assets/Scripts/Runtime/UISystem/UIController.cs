@@ -2,6 +2,7 @@
 using Runtime.Signal;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Zenject;
 
@@ -131,7 +132,8 @@ namespace Runtime.UISystem
             
             if (_healthIconCount == 0)
             {
-                Time.timeScale = 0;
+                _signalBus.Fire(new GameOverSignal());
+                SceneManager.LoadScene("RetryScene");
             }
         }
         

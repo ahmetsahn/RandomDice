@@ -104,7 +104,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 60aad0411d7a21544bcf3d57d5eeab69, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -134,8 +134,10 @@ MonoBehaviour:
   UpgradeParticleGameObject: {fileID: 2987850416137328164}
   model: {fileID: 11400000, guid: dc2e765412d16054493af14e6ed56d0b, type: 2}
   Damage: 0
-  DefaultSortingOrder: 0
-  SelectedSortingOrder: 0
+  SpriteRendererDefaultSortingOrder: 0
+  SpriteRendererSelectedSortingOrder: 0
+  LevelTextDefaultSortingOrder: 0
+  LevelTextSelectedSortingOrder: 0
   AttackInterval: 0
   BulletMoveDuration: 0
   IntervalReductionAmount: 0

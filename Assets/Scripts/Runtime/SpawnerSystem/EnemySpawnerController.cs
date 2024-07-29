@@ -42,6 +42,7 @@ namespace Runtime.SpawnerSystem
         {
             _signalBus.Subscribe<StartSpawnEnemySignal>(StartSpawnEnemySignal);
             _signalBus.Subscribe<BossDeadSignal>(BossDead);
+            _signalBus.Subscribe<GameOverSignal>(GameOver);
         }
         
         private void StartSpawnEnemySignal(StartSpawnEnemySignal signal)
@@ -89,11 +90,17 @@ namespace Runtime.SpawnerSystem
         {
             _bossIsDead = true;
         }
+        
+        private void GameOver(GameOverSignal signal)
+        {
+            Destroy(gameObject);
+        }
 
         private void UnsubscribeEvents()
         {
             _signalBus.Unsubscribe<StartSpawnEnemySignal>(StartSpawnEnemySignal);
             _signalBus.Unsubscribe<BossDeadSignal>(BossDead);
+            _signalBus.Unsubscribe<GameOverSignal>(GameOver);
         }
 
         private void OnDisable()
