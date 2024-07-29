@@ -63,9 +63,10 @@ namespace Runtime.UISystem
         
         private void UpgradeDefender(DefenderType defenderT)
         {
-            _signalBus.Fire(new ReduceCurrentEnergySignal(_upgradeCost));
             _upgradeLevel++;
-            
+            _upgradeCost += 100;
+            _signalBus.Fire(new ReduceCurrentEnergySignal(_upgradeCost - 100));
+            _signalBus.Fire(new UpgradeDefenderSignal(defenderT, _upgradeLevel));
             if(_upgradeLevel == MAX_LEVEL)
             {
                 _button.interactable = false;
@@ -76,9 +77,8 @@ namespace Runtime.UISystem
             }
             
             upgradeLevelText.text = "Lv " + _upgradeLevel;
-            _upgradeCost += 100;
+            
             upgradeCostText.text = _upgradeCost.ToString();
-            _signalBus.Fire(new UpgradeDefenderSignal(defenderT, _upgradeLevel));
         }
         
         private void PlayAudioClip()
@@ -96,7 +96,7 @@ namespace Runtime.UISystem
 
         private void UpdateUpgradeDefenderButtonState(UpdateUpgradeDefenderButtonStateSignal signal)
         {
-            _button.interactable = signal.CurrentEnergy >= _upgradeCost && _upgradeLevel < MAX_LEVEL;
+            _button.interactable = signal.CurrentEnergy >= _upgradeCost;
         }
         
         private void UnsubscribeEvents()

@@ -12,7 +12,7 @@ namespace Runtime.EnemySystem.View
     public class EnemyViewModel : MonoBehaviour, IEnemy
     {
         [Header("View")]
-        public TextMeshProUGUI HealthText;
+        public TextMeshPro HealthText;
         
         [Header("Model")]
         [SerializeField]

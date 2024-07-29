@@ -10,6 +10,8 @@ namespace Runtime.DefenderSystem.Model
         public DefenderType DefenderType;
         
         public int Damage;
+        public int SpriteRendererDefaultSortingOrder;
+        public int LevelTextDefaultSortingOrder;
         
         public float AttackInterval;
         public float BulletMoveDuration;

@@ -2390,7 +2390,7 @@ MonoBehaviour:
   emptyDefenderSpawnSlotParent: {fileID: 764751725}
   defenderPrefabArray:
   - {fileID: 4688395441679066216, guid: 70c1acf47881bef42bb4824f706f2a7e, type: 3}
-  - {fileID: 4688395441679066216, guid: 72708e7698138b54c8f2735ab9ec8521, type: 3}
+  - {fileID: 7373098685915248287, guid: 72708e7698138b54c8f2735ab9ec8521, type: 3}
   - {fileID: 4688395441679066216, guid: c210babed3e67744ca2bd20479424667, type: 3}
   - {fileID: 4688395441679066216, guid: aae03d5ff8b8d1b4b8e7895f65533a99, type: 3}
   - {fileID: 4688395441679066216, guid: c4008d3be8e15a1429d55cb880b8b519, type: 3}
@@ -2405,7 +2405,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -3637,7 +3637,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 984009398}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 1468588115202338304, guid: 0648aff6a08d3f0468df28399773aba6, type: 2}
   m_audioClip: {fileID: 8300000, guid: 3b4396da4289ef441ab15ca9e41bb82b, type: 3}

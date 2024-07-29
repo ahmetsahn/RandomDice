@@ -42,7 +42,7 @@ namespace Runtime.UISystem
         private void Awake()
         {
             _healthIconCount = healthIcons.Length;
-            _currentEnergy = 100;
+            _currentEnergy = 1000;
             _requiredEnergyForSpawnDefender = 10;
             currentEnergyText.text = _currentEnergy.ToString();
             requiredEnergyForSpawnDefenderText.text = _requiredEnergyForSpawnDefender.ToString();

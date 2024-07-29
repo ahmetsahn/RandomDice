@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DefenderType: 0
   Damage: 5
+  SpriteRendererDefaultSortingOrder: 1
+  LevelTextDefaultSortingOrder: 50
   AttackInterval: 0.8
   BulletMoveDuration: 0.1
   IntervalReductionAmount: 0
   DefaultScale: 0.65
-  UnMergeableColor: {r: 1, g: 1, b: 1, a: 0.3529412}
+  UnMergeableColor: {r: 1, g: 1, b: 1, a: 0.19607843}
   DefaultColor: {r: 1, g: 1, b: 1, a: 1}

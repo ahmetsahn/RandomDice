@@ -42,12 +42,14 @@ namespace Runtime.DefenderSystem.Controller
             _offset = _viewModel.transform.position - _camera.ScreenToWorldPoint(Input.mousePosition);
             _dragging = true;
             _signalBus.Fire(new ShowMergeableDefendersSignal(_viewModel));
+            _viewModel.OnMouseDownEvent?.Invoke();
         }
 
         private void OnMouseUp()
         {
             _dragging = false;
             _signalBus.Fire(new MergeDefendersSignal(_viewModel));
+            _viewModel.OnMouseUpEvent?.Invoke();
         }
     }
 }

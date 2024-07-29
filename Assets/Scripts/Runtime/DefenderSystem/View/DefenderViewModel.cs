@@ -5,6 +5,7 @@ using Runtime.Interface;
 using Runtime.Signal;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Zenject;
 
 namespace Runtime.DefenderSystem.View
@@ -14,7 +15,10 @@ namespace Runtime.DefenderSystem.View
         [Header("View")]
         public SpriteRenderer SpriteRenderer;
         
-        public TextMeshProUGUI LevelText;
+        public TextMeshPro LevelText;
+        public TextMeshPro LevelUpgradeText;
+        
+        public GameObject UpgradeParticleGameObject;
         
         [Header("Model")]
         [SerializeField]
@@ -22,6 +26,15 @@ namespace Runtime.DefenderSystem.View
         
         [HideInInspector]
         public int Damage;
+        [HideInInspector]
+        public int SpriteRendererDefaultSortingOrder;
+        [HideInInspector]
+        public int SpriteRendererSelectedSortingOrder;
+        [HideInInspector]
+        public int LevelTextDefaultSortingOrder;
+        [HideInInspector]
+        public int LevelTextSelectedSortingOrder;
+        
         [HideInInspector]
         public float AttackInterval;
         [HideInInspector]
@@ -42,6 +55,9 @@ namespace Runtime.DefenderSystem.View
         
         public Vector3 InitialPosition { get; set; }
         public int Level { get; set; } = 1;
+
+        public Action OnMouseDownEvent;
+        public Action OnMouseUpEvent;
         
         public Action SetDefaultLevelEvent { get; set; }
         public Action SetDefaultColorEvent { get; set; }
@@ -73,6 +89,10 @@ namespace Runtime.DefenderSystem.View
         private void SetDefaultData()
         {
             Damage = model.Damage;
+            SpriteRendererDefaultSortingOrder = model.SpriteRendererDefaultSortingOrder;
+            SpriteRendererSelectedSortingOrder = model.SpriteRendererDefaultSortingOrder + 1;
+            LevelTextDefaultSortingOrder = model.LevelTextDefaultSortingOrder;
+            LevelTextSelectedSortingOrder = model.LevelTextDefaultSortingOrder + 2;
             AttackInterval = model.AttackInterval;
             UnMergeableColor = model.UnMergeableColor;
             DefaultColor = model.DefaultColor;
