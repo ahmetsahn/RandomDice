@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Runtime.DefenderSystem.Model;
 using Runtime.Enum;
 using Runtime.Interface;
@@ -24,7 +25,7 @@ namespace Runtime.DefenderSystem.View
         [SerializeField]
         private DefenderSo model;
         
-        [HideInInspector]
+        
         public int Damage;
         [HideInInspector]
         public int SpriteRendererDefaultSortingOrder;
@@ -35,12 +36,10 @@ namespace Runtime.DefenderSystem.View
         [HideInInspector]
         public int LevelTextSelectedSortingOrder;
         
-        [HideInInspector]
+        
         public float AttackInterval;
         [HideInInspector]
         public float BulletMoveDuration;
-        [HideInInspector]
-        public float IntervalReductionAmount;
         [HideInInspector]
         public float DefaultScale;
         
@@ -48,6 +47,15 @@ namespace Runtime.DefenderSystem.View
         public Color UnMergeableColor;
         [HideInInspector]
         public Color DefaultColor;
+        
+        [HideInInspector]
+        public List<int> LevelUpDamageIncrease;
+        [HideInInspector]
+        public List<int> UpgradeDamageIncrease;
+        [HideInInspector]
+        public List<float> LevelUpAttackIntervalReduction;
+        [HideInInspector]
+        public List<float> UpgradeAttackIntervalReduction;
         
         public DefenderType DefenderType => model.DefenderType;
         
@@ -89,16 +97,19 @@ namespace Runtime.DefenderSystem.View
         private void SetDefaultData()
         {
             Damage = model.Damage;
-            SpriteRendererDefaultSortingOrder = model.SpriteRendererDefaultSortingOrder;
-            SpriteRendererSelectedSortingOrder = model.SpriteRendererDefaultSortingOrder + 1;
             LevelTextDefaultSortingOrder = model.LevelTextDefaultSortingOrder;
             LevelTextSelectedSortingOrder = model.LevelTextDefaultSortingOrder + 2;
+            SpriteRendererDefaultSortingOrder = model.SpriteRendererDefaultSortingOrder;
+            SpriteRendererSelectedSortingOrder = model.LevelTextDefaultSortingOrder + 1;
             AttackInterval = model.AttackInterval;
             UnMergeableColor = model.UnMergeableColor;
             DefaultColor = model.DefaultColor;
             BulletMoveDuration = model.BulletMoveDuration;
-            IntervalReductionAmount = model.IntervalReductionAmount;
             DefaultScale = model.DefaultScale;
+            LevelUpDamageIncrease = model.LevelUpDamageIncrease;
+            UpgradeDamageIncrease = model.UpgradeDamageIncrease;
+            LevelUpAttackIntervalReduction = model.LevelUpAttackIntervalReduction;
+            UpgradeAttackIntervalReduction = model.UpgradeAttackIntervalReduction;
         }
 
         private void Reset()

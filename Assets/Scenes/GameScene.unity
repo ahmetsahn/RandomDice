@@ -475,7 +475,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 0.39215687}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 0.39215687}
+    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
     m_DisabledColor: {r: 1, g: 1, b: 1, a: 0.39215687}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -1103,7 +1103,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0.30
+  m_text: 1.30
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dbac286fcfd76e74394d106896b08af2, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: dbac286fcfd76e74394d106896b08af2, type: 2}
@@ -1732,43 +1732,103 @@ MonoBehaviour:
   waveDataList:
   - Enemies:
     - {fileID: 6508538475287531172, guid: 811c869aa27855746a059386c819f5d4, type: 3}
-    SpawnCount: 14000000
+    SpawnCount: 55000000
     SpawnInterval:
     - 1
     WaitingTimeBetweenEnemyTypes: []
     WaveTime: 0.19
-    WaitingTimeBossSpawn: 10
+    WaitingTimeBossSpawn: 5
     Boss: {fileID: 6508538475287531172, guid: 3ad7453175f30cf47ada5780f88a6ff6, type: 3}
     WaitingTimeAfterWaveEnds: 5
   - Enemies:
     - {fileID: 6508538475287531172, guid: defe98ca7e6c4de4082580c946406ae4, type: 3}
-    SpawnCount: 19000000
+    SpawnCount: 55000000
     SpawnInterval:
-    - 0.75
+    - 1
     WaitingTimeBetweenEnemyTypes: []
     WaveTime: 
-    WaitingTimeBossSpawn: 10
+    WaitingTimeBossSpawn: 5
     Boss: {fileID: 6508538475287531172, guid: 3272ba1619eca6f408b7808c1a10a6cf, type: 3}
     WaitingTimeAfterWaveEnds: 5
   - Enemies:
-    - {fileID: 6508538475287531172, guid: 811c869aa27855746a059386c819f5d4, type: 3}
-    SpawnCount: 28000000
+    - {fileID: 6508538475287531172, guid: bc5b6d5aa9da68e43a614a0780241a86, type: 3}
+    SpawnCount: 5a000000
     SpawnInterval:
-    - 0.4
+    - 1
     WaitingTimeBetweenEnemyTypes: []
     WaveTime: 
-    WaitingTimeBossSpawn: 10
-    Boss: {fileID: 6508538475287531172, guid: 3ad7453175f30cf47ada5780f88a6ff6, type: 3}
+    WaitingTimeBossSpawn: 5
+    Boss: {fileID: 6508538475287531172, guid: 7bcdb907cbe7fc34d980e3ab251e3b03, type: 3}
     WaitingTimeAfterWaveEnds: 5
   - Enemies:
-    - {fileID: 6508538475287531172, guid: defe98ca7e6c4de4082580c946406ae4, type: 3}
-    SpawnCount: 2d000000
+    - {fileID: 6508538475287531172, guid: 6d8389515a82ec04da2404a176d34f22, type: 3}
+    SpawnCount: 5a000000
     SpawnInterval:
-    - 0.3
+    - 1
     WaitingTimeBetweenEnemyTypes: []
     WaveTime: 
-    WaitingTimeBossSpawn: 10
-    Boss: {fileID: 6508538475287531172, guid: 3272ba1619eca6f408b7808c1a10a6cf, type: 3}
+    WaitingTimeBossSpawn: 5
+    Boss: {fileID: 6508538475287531172, guid: 1f7921933f53f0745b78bddb74888862, type: 3}
+    WaitingTimeAfterWaveEnds: 5
+  - Enemies:
+    - {fileID: 6508538475287531172, guid: 84ac10b26d889614d8b0f3f6909de5b7, type: 3}
+    SpawnCount: 5f000000
+    SpawnInterval:
+    - 1
+    WaitingTimeBetweenEnemyTypes: []
+    WaveTime: 
+    WaitingTimeBossSpawn: 5
+    Boss: {fileID: 6508538475287531172, guid: 0680e1981343af049826bdcfc8c6bf11, type: 3}
+    WaitingTimeAfterWaveEnds: 5
+  - Enemies:
+    - {fileID: 6508538475287531172, guid: 05756e97c68faa3428357f1766a689ed, type: 3}
+    SpawnCount: 5f000000
+    SpawnInterval:
+    - 1
+    WaitingTimeBetweenEnemyTypes: []
+    WaveTime: 
+    WaitingTimeBossSpawn: 5
+    Boss: {fileID: 6508538475287531172, guid: 1dda73a6c5a3a894598b9a9728a005f5, type: 3}
+    WaitingTimeAfterWaveEnds: 5
+  - Enemies:
+    - {fileID: 6508538475287531172, guid: e4f8c402147c5ab43beeed36e70e10be, type: 3}
+    SpawnCount: 64000000
+    SpawnInterval:
+    - 1
+    WaitingTimeBetweenEnemyTypes: []
+    WaveTime: 
+    WaitingTimeBossSpawn: 5
+    Boss: {fileID: 6508538475287531172, guid: b1ec51655b50e1245b084b899440f0b2, type: 3}
+    WaitingTimeAfterWaveEnds: 5
+  - Enemies:
+    - {fileID: 6508538475287531172, guid: 5cacf4e302501f34a8b666a9431815bc, type: 3}
+    SpawnCount: 64000000
+    SpawnInterval:
+    - 1
+    WaitingTimeBetweenEnemyTypes: []
+    WaveTime: 
+    WaitingTimeBossSpawn: 5
+    Boss: {fileID: 6508538475287531172, guid: 3c678f9ef6220904ba93e00e05e7d7a7, type: 3}
+    WaitingTimeAfterWaveEnds: 5
+  - Enemies:
+    - {fileID: 6508538475287531172, guid: a3fcfbb6c9bb2a34e8846a2950974933, type: 3}
+    SpawnCount: 6e000000
+    SpawnInterval:
+    - 1
+    WaitingTimeBetweenEnemyTypes: []
+    WaveTime: 
+    WaitingTimeBossSpawn: 5
+    Boss: {fileID: 6508538475287531172, guid: a906db42535548d44a392bec66428415, type: 3}
+    WaitingTimeAfterWaveEnds: 5
+  - Enemies:
+    - {fileID: 6508538475287531172, guid: 314e06b5a1fd6064bbcc01c0b43f5549, type: 3}
+    SpawnCount: 6e000000
+    SpawnInterval:
+    - 1
+    WaitingTimeBetweenEnemyTypes: []
+    WaveTime: 
+    WaitingTimeBossSpawn: 5
+    Boss: {fileID: 6508538475287531172, guid: 9d5adc982560ab5418c20e95221253f7, type: 3}
     WaitingTimeAfterWaveEnds: 5
 --- !u!4 &440991679
 Transform:
@@ -2122,7 +2182,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 0.39215687}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 0.39215687}
+    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
     m_DisabledColor: {r: 1, g: 1, b: 1, a: 0.39215687}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -2919,7 +2979,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 0.39215687}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 0.39215687}
+    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
     m_DisabledColor: {r: 1, g: 1, b: 1, a: 0.39215687}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -6184,7 +6244,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 0.39215687}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 0.39215687}
+    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
     m_DisabledColor: {r: 1, g: 1, b: 1, a: 0.39215687}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -6602,7 +6662,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 0.39215687}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 0.39215687}
+    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
     m_DisabledColor: {r: 1, g: 1, b: 1, a: 0.39215687}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1

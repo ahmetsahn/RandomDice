@@ -35,9 +35,9 @@ namespace Runtime.DefenderSystem.Controller
         private void OnLevelUp(int level)
         {
             _viewModel.Level = level + 1;
-            _viewModel.LevelText.text = _viewModel.Level.ToString();
-            _viewModel.Damage += _viewModel.Level;
-            _viewModel.AttackInterval -= _viewModel.IntervalReductionAmount;
+            _viewModel.LevelText.text = _viewModel.Level == 6 ? "MAX" : _viewModel.Level.ToString();
+            _viewModel.Damage += _viewModel.LevelUpDamageIncrease[level-1];
+            _viewModel.AttackInterval -= _viewModel.LevelUpAttackIntervalReduction[level-1];
         }
         
         private void OnSetDefaultLevel()
@@ -48,20 +48,14 @@ namespace Runtime.DefenderSystem.Controller
         
         private void OnUpgradeDefender(int upgradeLevel)
         {
-            _viewModel.Damage += upgradeLevel;
-            _viewModel.AttackInterval -= _viewModel.IntervalReductionAmount;
+            _viewModel.Damage += _viewModel.UpgradeDamageIncrease[upgradeLevel-2];
+            _viewModel.AttackInterval -= _viewModel.UpgradeAttackIntervalReduction[upgradeLevel-2];
         }
         
         private void OnUpgradeNewDefender(int upgradeLevel)
         {
-            int cumulativeSum = 0;
-            for (int i = 2; i <= upgradeLevel; i++)
-            {
-                cumulativeSum += i;
-            }
-            
-            _viewModel.Damage += cumulativeSum;
-            _viewModel.AttackInterval -= _viewModel.IntervalReductionAmount;
+            _viewModel.Damage += _viewModel.UpgradeDamageIncrease[upgradeLevel-2];
+            _viewModel.AttackInterval -= _viewModel.UpgradeAttackIntervalReduction[upgradeLevel-2];
         }
         
         private void UnsubscribeEvents()

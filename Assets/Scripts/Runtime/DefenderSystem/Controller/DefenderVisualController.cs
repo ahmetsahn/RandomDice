@@ -71,7 +71,7 @@ namespace Runtime.DefenderSystem.Controller
         
         private void OnMouseDownEvent()
         {
-            _viewModel.SpriteRenderer.sortingOrder = _viewModel.LevelTextDefaultSortingOrder + 1;
+            _viewModel.SpriteRenderer.sortingOrder = _viewModel.SpriteRendererSelectedSortingOrder;
             _viewModel.LevelText.sortingOrder = _viewModel.LevelTextSelectedSortingOrder;
         }
         

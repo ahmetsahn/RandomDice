@@ -13,12 +13,24 @@ MonoBehaviour:
   m_Name: BlueDefender
   m_EditorClassIdentifier: 
   DefenderType: 1
-  Damage: 8
-  SpriteRendererDefaultSortingOrder: 1
+  Damage: 7
+  SpriteRendererDefaultSortingOrder: 2
   LevelTextDefaultSortingOrder: 50
-  AttackInterval: 0.7
+  AttackInterval: 0.475
   BulletMoveDuration: 0.1
-  IntervalReductionAmount: 0
   DefaultScale: 0.65
   UnMergeableColor: {r: 1, g: 1, b: 1, a: 0.19607843}
   DefaultColor: {r: 1, g: 1, b: 1, a: 1}
+  LevelUpDamageIncrease: 0100000002000000040000000800000010000000
+  UpgradeDamageIncrease: 01000000020000000300000004000000
+  LevelUpAttackIntervalReduction:
+  - 0.025
+  - 0.025
+  - 0.025
+  - 0.025
+  - 0.025
+  UpgradeAttackIntervalReduction:
+  - 0.025
+  - 0.025
+  - 0.025
+  - 0.025
