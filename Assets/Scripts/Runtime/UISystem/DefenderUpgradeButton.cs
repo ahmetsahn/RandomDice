@@ -96,7 +96,7 @@ namespace Runtime.UISystem
 
         private void UpdateUpgradeDefenderButtonState(UpdateUpgradeDefenderButtonStateSignal signal)
         {
-            _button.interactable = signal.CurrentEnergy >= _upgradeCost;
+            _button.interactable = signal.CurrentEnergy >= _upgradeCost && _upgradeLevel < MAX_LEVEL;
         }
         
         private void UnsubscribeEvents()

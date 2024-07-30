@@ -39,8 +39,9 @@ namespace Runtime.Core
             Container.DeclareSignal<SetDamagePopupTextSignal>();
             Container.DeclareSignal<IncreaseWaveSignal>();
             Container.DeclareSignal<ResumeTimerSignal>();
-            Container.DeclareSignal<GameOverSignal>();
-            
+            Container.DeclareSignal<EnableBinSpriteSignal>();
+            Container.DeclareSignal<SendDefenderToBinSignal>();
+            Container.DeclareSignal<AddToEmptyDefenderSpawnSlotListSignal>();
         }
     }
 }

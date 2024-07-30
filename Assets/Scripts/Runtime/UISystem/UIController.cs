@@ -1,4 +1,5 @@
-﻿using AudioSystem;
+﻿using System;
+using AudioSystem;
 using Runtime.Signal;
 using TMPro;
 using UnityEngine;
@@ -14,6 +15,13 @@ namespace Runtime.UISystem
         private Button startButton;
         [SerializeField]
         private Button createDefenderButton;
+        [SerializeField]
+        private Button speedUpButton;
+        [SerializeField]
+        private Button restartButton;
+        
+        [SerializeField]
+        private Image speedUpButtonImage;
         
         [SerializeField]
         private TextMeshProUGUI currentEnergyText;
@@ -64,6 +72,8 @@ namespace Runtime.UISystem
         {
             startButton.onClick.AddListener(OnStartButtonClicked);
             createDefenderButton.onClick.AddListener(CreateDefenderButtonClicked);
+            speedUpButton.onClick.AddListener(OnSpeedButtonClicked);
+            restartButton.onClick.AddListener(OnRestartButtonClicked);
             _signalBus.Subscribe<DestroyHealthIconSignal>(DestroyHealthIcon);
             _signalBus.Subscribe<IncreaseCurrentEnergySignal>(IncreaseCurrentEnergySignal);
             _signalBus.Subscribe<ReduceCurrentEnergySignal>(ReduceCurrentEnergySignal);
@@ -86,6 +96,18 @@ namespace Runtime.UISystem
             IncreaseRequiredEnergy(10);
             UpdateSpawnDefenderButtonState();
             SoundManager.Instance.CreateSoundBuilder().Play(buttonClickSoundData);
+        }
+        
+        private void OnSpeedButtonClicked()
+        {
+            Time.timeScale = Time.timeScale == 1 ? 2 : 1;
+            speedUpButtonImage.color = Time.timeScale == 1 ? Color.red : Color.green;
+            SoundManager.Instance.CreateSoundBuilder().Play(buttonClickSoundData);
+        }
+        
+        private void OnRestartButtonClicked()
+        {
+            RestartLoadScene();
         }
         
         private void UpdateSpawnDefenderButtonState()
@@ -132,9 +154,13 @@ namespace Runtime.UISystem
             
             if (_healthIconCount == 0)
             {
-                _signalBus.Fire(new GameOverSignal());
-                SceneManager.LoadScene("RetryScene");
+                RestartLoadScene();
             }
+        }
+        
+        private void RestartLoadScene()
+        {
+            SceneManager.LoadScene(0);
         }
         
         private void IsDefenderSpawnSlotListFull(IsDefenderSpawnSlotListFullSignal signal)
@@ -152,6 +178,8 @@ namespace Runtime.UISystem
         {
             startButton.onClick.RemoveListener(OnStartButtonClicked);
             createDefenderButton.onClick.RemoveListener(CreateDefenderButtonClicked);
+            speedUpButton.onClick.RemoveListener(OnSpeedButtonClicked);
+            restartButton.onClick.RemoveListener(OnRestartButtonClicked);
             _signalBus.Unsubscribe<DestroyHealthIconSignal>(DestroyHealthIcon);
             _signalBus.Unsubscribe<IncreaseCurrentEnergySignal>(IncreaseCurrentEnergySignal);
             _signalBus.Unsubscribe<ReduceCurrentEnergySignal>(ReduceCurrentEnergySignal);

@@ -13,12 +13,17 @@ namespace Runtime.DefenderSystem.Manager
     {
         [SerializeField]
         private SoundData mergeSoundData;
+        [SerializeField]
+        private SoundData trashSoundData;
         
         private readonly List<IDefender> _defenderList = new();
 
         private SignalBus _signalBus;
 
         private const int MAX_LEVEL = 6;
+        
+        [SerializeField]
+        private GameObject trashSprite;
         
         [Inject]
         public void Construct(SignalBus signalBus)
@@ -38,6 +43,7 @@ namespace Runtime.DefenderSystem.Manager
             _signalBus.Subscribe<ShowMergeableDefendersSignal>(ShowMergeableDefenders);
             _signalBus.Subscribe<MergeDefendersSignal>(MergeDefenders);
             _signalBus.Subscribe<UpgradeDefenderSignal>(UpgradeDefender);
+            _signalBus.Subscribe<SendDefenderToBinSignal>(SendDefenderToBin);
         }
         
 
@@ -53,6 +59,8 @@ namespace Runtime.DefenderSystem.Manager
         
         private void ShowMergeableDefenders(ShowMergeableDefendersSignal signal)
         {
+            trashSprite.SetActive(true);
+            
             foreach (IDefender defender in _defenderList)
             {
                 if (defender.DefenderType != signal.Defender.DefenderType 
@@ -67,6 +75,19 @@ namespace Runtime.DefenderSystem.Manager
 
         private void MergeDefenders(MergeDefendersSignal signal)
         {
+            trashSprite.SetActive(false);
+            float trashDistance = Vector3.Distance(trashSprite.transform.position, signal.Defender.Transform.position);
+            
+            if (trashDistance < 0.5f)
+            {
+                ObjectPoolManager.ReturnObjectToPool(signal.Defender.Transform.gameObject);
+                SoundManager.Instance.CreateSoundBuilder().Play(trashSoundData);
+                SetDefaultColor();
+                _signalBus.Fire(new AddToEmptyDefenderSpawnSlotListSignal(signal.Defender.InitialPosition));
+                _signalBus.Fire(new UpdateSpawnDefenderButtonStateSignal());
+                return;
+            }
+            
             foreach (IDefender defender in _defenderList)
             {
                 if (defender.DefenderType == signal.Defender.DefenderType 
@@ -91,6 +112,19 @@ namespace Runtime.DefenderSystem.Manager
             
             SetDefaultColor();
             signal.Defender.Transform.DOMove(signal.Defender.InitialPosition, 0.25f);
+        }
+
+        private void SendDefenderToBin(SendDefenderToBinSignal signal)
+        {
+            float distance = Vector3.Distance(signal.Defender.Transform.position, signal.Defender.Transform.position);
+            if (distance > 0.5f)
+            {
+                return;
+            }
+            
+            ObjectPoolManager.ReturnObjectToPool(signal.Defender.Transform.gameObject);
+            _defenderList.Remove(signal.Defender);
+            _signalBus.Fire(new UpdateSpawnDefenderButtonStateSignal());
         }
         
         private void SetDefaultColor()
@@ -118,6 +152,8 @@ namespace Runtime.DefenderSystem.Manager
             _signalBus.Unsubscribe<RemoveDefenderFromListSignal>(RemoveDefenderFromList);
             _signalBus.Unsubscribe<ShowMergeableDefendersSignal>(ShowMergeableDefenders);
             _signalBus.Unsubscribe<MergeDefendersSignal>(MergeDefenders);
+            _signalBus.Unsubscribe<UpgradeDefenderSignal>(UpgradeDefender);
+            _signalBus.Unsubscribe<SendDefenderToBinSignal>(SendDefenderToBin);
         }
         
         private void OnDisable()

@@ -42,7 +42,6 @@ namespace Runtime.SpawnerSystem
         {
             _signalBus.Subscribe<StartSpawnEnemySignal>(StartSpawnEnemySignal);
             _signalBus.Subscribe<BossDeadSignal>(BossDead);
-            _signalBus.Subscribe<GameOverSignal>(GameOver);
         }
         
         private void StartSpawnEnemySignal(StartSpawnEnemySignal signal)
@@ -54,8 +53,7 @@ namespace Runtime.SpawnerSystem
         {
             foreach (WaveData waveData in waveDataList)
             {
-                float totalSecond = waveData.SpawnCount[_currentWaveIndex] * waveData.SpawnInterval[_currentWaveIndex] + waveData.WaitingTimeBossSpawn;
-                _signalBus.Fire(new ResumeTimerSignal(totalSecond));
+                _signalBus.Fire(new ResumeTimerSignal());
                 await SpawnEnemyWithAsync(waveData);
                 await UniTask.Delay(TimeSpan.FromSeconds(waveData.WaitingTimeBossSpawn));
                 _signalBus.Fire(new BossSequenceSignal(waveData.Boss));
@@ -90,17 +88,11 @@ namespace Runtime.SpawnerSystem
         {
             _bossIsDead = true;
         }
-        
-        private void GameOver(GameOverSignal signal)
-        {
-            Destroy(gameObject);
-        }
 
         private void UnsubscribeEvents()
         {
             _signalBus.Unsubscribe<StartSpawnEnemySignal>(StartSpawnEnemySignal);
             _signalBus.Unsubscribe<BossDeadSignal>(BossDead);
-            _signalBus.Unsubscribe<GameOverSignal>(GameOver);
         }
 
         private void OnDisable()

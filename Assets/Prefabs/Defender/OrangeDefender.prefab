@@ -140,10 +140,13 @@ MonoBehaviour:
   LevelTextSelectedSortingOrder: 0
   AttackInterval: 0
   BulletMoveDuration: 0
-  IntervalReductionAmount: 0
   DefaultScale: 0
   UnMergeableColor: {r: 0, g: 0, b: 0, a: 0}
   DefaultColor: {r: 0, g: 0, b: 0, a: 0}
+  LevelUpDamageIncrease: 
+  UpgradeDamageIncrease: 
+  LevelUpAttackIntervalReduction: []
+  UpgradeAttackIntervalReduction: []
 --- !u!114 &-398734181550147752
 MonoBehaviour:
   m_ObjectHideFlags: 0

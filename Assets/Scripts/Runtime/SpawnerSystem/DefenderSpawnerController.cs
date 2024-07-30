@@ -48,6 +48,12 @@ namespace Runtime.SpawnerSystem
         {
             _signalBus.Subscribe<SpawnDefenderRandomLocationSignal>(SpawnDefenderRandomLocation);
             _signalBus.Subscribe<SpawnMergedDefenderSignal>(SpawnMergedDefender);
+            _signalBus.Subscribe<AddToEmptyDefenderSpawnSlotListSignal>(AddToEmptyDefenderSpawnSlotListSignal);
+        }
+        
+        private void AddToEmptyDefenderSpawnSlotListSignal(AddToEmptyDefenderSpawnSlotListSignal signal)
+        {
+            AddToEmptyDefenderSpawnSlotList(signal.EmptyDefenderSpawnSlot);
         }
         
         private void AddToEmptyDefenderSpawnSlotList(Vector3 position)
@@ -125,6 +131,7 @@ namespace Runtime.SpawnerSystem
         {
             _signalBus.Unsubscribe<SpawnDefenderRandomLocationSignal>(SpawnDefenderRandomLocation);
             _signalBus.Unsubscribe<SpawnMergedDefenderSignal>(SpawnMergedDefender);
+            _signalBus.Unsubscribe<AddToEmptyDefenderSpawnSlotListSignal>(AddToEmptyDefenderSpawnSlotListSignal);
         }
         
         private void OnDisable()

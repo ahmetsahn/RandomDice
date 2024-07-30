@@ -28,12 +28,9 @@ namespace Runtime.UISystem
              _signalBus.Subscribe<ResumeTimerSignal>(OnResumeTimer);
         }
         
-        private void OnResumeTimer(ResumeTimerSignal signal)
+        private void OnResumeTimer()
         {
-            int minutes = Mathf.FloorToInt(signal.WaveTime / 60);
-            int seconds = Mathf.FloorToInt(signal.WaveTime % 60);
-            
-            timerText.text = $"{minutes:0}:{seconds:00}";
+            timerText.text = "1.30";
             InvokeRepeating(nameof(ReduceTime), 1, 1f);
         }
         

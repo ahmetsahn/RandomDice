@@ -69,11 +69,11 @@ namespace Runtime.DefenderSystem.Controller
                 GameObject bullet = ObjectPoolManager.SpawnObject(bulletPrefab, _viewModel.transform.position, Quaternion.identity);
                 bullet.transform.DOMove(signal.Enemy.Transform.position, _viewModel.BulletMoveDuration).OnComplete(() =>
                 {
-                    CreateBulletHitParticle(signal.Enemy.Transform);
-                    CreateDamagePopup(signal.Enemy.Transform, _viewModel.Damage);
+                    CreateBulletHitParticle(bullet.transform);
+                    CreateDamagePopup(bullet.transform, _viewModel.Damage);
                     SoundManager.Instance.CreateSoundBuilder().WithRandomPitch().WithPosition(bullet.transform.position).Play(attackSoundData);
-                    ObjectPoolManager.ReturnObjectToPool(bullet);
                     signal.Enemy.TakeDamageEvent?.Invoke(_viewModel.Damage);
+                    ObjectPoolManager.ReturnObjectToPool(bullet);
                 });
 
                 await UniTask.Delay(TimeSpan.FromSeconds(_viewModel.AttackInterval), cancellationToken: attackCancellationTokenSource);
