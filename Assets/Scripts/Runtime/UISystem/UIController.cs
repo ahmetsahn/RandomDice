@@ -160,6 +160,7 @@ namespace Runtime.UISystem
         
         private void RestartLoadScene()
         {
+            Time.timeScale = 1;
             SceneManager.LoadScene(0);
         }
         

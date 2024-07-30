@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cafd3a66952d4366b8879e76875bda9a, type: 3}
   m_Name: CircleBoss
   m_EditorClassIdentifier: 
-  MaxHealth: 5000
+  MaxHealth: 6000
   EnergyValue: 500
   Speed: 0.6
   DefaultScale: 1

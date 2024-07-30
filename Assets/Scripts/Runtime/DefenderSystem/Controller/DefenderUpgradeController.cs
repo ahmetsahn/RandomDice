@@ -11,6 +11,8 @@ namespace Runtime.DefenderSystem.Controller
         
         private SignalBus _signalBus;
         
+        private const int MAX_LEVEL = 6;
+        
         [Inject]
         private void Construct(DefenderViewModel viewModel, SignalBus signalBus)
         {
@@ -35,7 +37,16 @@ namespace Runtime.DefenderSystem.Controller
         private void OnLevelUp(int level)
         {
             _viewModel.Level = level + 1;
-            _viewModel.LevelText.text = _viewModel.Level == 6 ? "MAX" : _viewModel.Level.ToString();
+            if(_viewModel.Level == MAX_LEVEL)
+            {
+                _viewModel.LevelText.fontSize = 15;
+                _viewModel.LevelText.text = "MAX";
+            }
+
+            else
+            {
+                _viewModel.LevelText.text = _viewModel.Level.ToString();
+            }
             _viewModel.Damage += _viewModel.LevelUpDamageIncrease[level-1];
             _viewModel.AttackInterval -= _viewModel.LevelUpAttackIntervalReduction[level-1];
         }

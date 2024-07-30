@@ -1,4 +1,5 @@
-﻿using AudioSystem;
+﻿using System.Collections.Generic;
+using AudioSystem;
 using Runtime.Enum;
 using Runtime.Signal;
 using TMPro;
@@ -24,6 +25,9 @@ namespace Runtime.UISystem
         [SerializeField]
         private SoundData buttonClickSoundData;
         
+        [SerializeField]
+        private List<int> upgradeCostList;
+        
         private Button _button;
         
         private int _upgradeLevel;
@@ -43,7 +47,7 @@ namespace Runtime.UISystem
         {
             _button = GetComponent<Button>();
             _upgradeLevel = 1;
-            _upgradeCost = 100;
+            _upgradeCost = upgradeCostList[0];
             upgradeLevelText.text = "Lv " + _upgradeLevel;
             upgradeCostText.text = _upgradeCost.ToString();
         }
@@ -63,9 +67,10 @@ namespace Runtime.UISystem
         
         private void UpgradeDefender(DefenderType defenderT)
         {
+            int reduceEnergy = _upgradeCost;
             _upgradeLevel++;
-            _upgradeCost += 100;
-            _signalBus.Fire(new ReduceCurrentEnergySignal(_upgradeCost - 100));
+            _upgradeCost = upgradeCostList[_upgradeLevel - 1];
+            _signalBus.Fire(new ReduceCurrentEnergySignal(reduceEnergy));
             _signalBus.Fire(new UpgradeDefenderSignal(defenderT, _upgradeLevel));
             if(_upgradeLevel == MAX_LEVEL)
             {
