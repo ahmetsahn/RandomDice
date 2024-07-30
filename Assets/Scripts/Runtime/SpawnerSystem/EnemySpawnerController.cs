@@ -5,6 +5,7 @@ using DG.Tweening;
 using Runtime.Core.Pool;
 using Runtime.Signal;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Zenject;
 
 namespace Runtime.SpawnerSystem
@@ -62,6 +63,8 @@ namespace Runtime.SpawnerSystem
                 _signalBus.Fire(new IncreaseWaveSignal());
                 _bossIsDead = false;
             }
+            
+            SceneManager.LoadScene(0);
         }
 
         private async UniTask SpawnEnemyWithAsync(WaveData waveData)

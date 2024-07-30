@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Zenject;
@@ -83,6 +84,11 @@ namespace Runtime.Core.Pool
             
             objectToReturn.SetActive(false);
             pool.InactiveObjects.Add(objectToReturn);
+        }
+
+        private void OnDisable()
+        {
+            ObjectPools.Clear();
         }
     }
 }

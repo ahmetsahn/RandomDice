@@ -37,7 +37,7 @@ Transform:
   m_LocalScale: {x: 0, y: 0, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5062139170692840134}
+  - {fileID: 2999051688115755163}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1031014816055458053
@@ -104,7 +104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cac2f4a7f87849cf870aad33f6411390, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HealthText: {fileID: 9061657838212315191}
+  HealthText: {fileID: 1306018141718387306}
   data: {fileID: 11400000, guid: 73d11fbbf9906ac4dbbd9903ee05f391, type: 2}
   Speed: 0
   DefaultScale: 0
@@ -192,7 +192,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3984dc9076674abeb690492a8f562ee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &1637001013956209592
+--- !u!1001 &8748623670206794213
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -235,14 +235,6 @@ PrefabInstance:
     - target: {fileID: 5834307209511358846, guid: 33bb7310c80af3f47b38e330f1374ee4, type: 3}
       propertyPath: m_SizeDelta.y
       value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 5834307209511358846, guid: 33bb7310c80af3f47b38e330f1374ee4, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5834307209511358846, guid: 33bb7310c80af3f47b38e330f1374ee4, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 5834307209511358846, guid: 33bb7310c80af3f47b38e330f1374ee4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -292,32 +284,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7743572823667839887, guid: 33bb7310c80af3f47b38e330f1374ee4, type: 3}
-      propertyPath: m_text
-      value: 1000
-      objectReference: {fileID: 0}
-    - target: {fileID: 7743572823667839887, guid: 33bb7310c80af3f47b38e330f1374ee4, type: 3}
-      propertyPath: m_fontSize
-      value: 38
-      objectReference: {fileID: 0}
-    - target: {fileID: 7743572823667839887, guid: 33bb7310c80af3f47b38e330f1374ee4, type: 3}
-      propertyPath: m_fontSizeBase
-      value: 38
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 33bb7310c80af3f47b38e330f1374ee4, type: 3}
---- !u!224 &5062139170692840134 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 5834307209511358846, guid: 33bb7310c80af3f47b38e330f1374ee4, type: 3}
-  m_PrefabInstance: {fileID: 1637001013956209592}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &9061657838212315191 stripped
+--- !u!114 &1306018141718387306 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7743572823667839887, guid: 33bb7310c80af3f47b38e330f1374ee4, type: 3}
-  m_PrefabInstance: {fileID: 1637001013956209592}
+  m_PrefabInstance: {fileID: 8748623670206794213}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -325,3 +300,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &2999051688115755163 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 5834307209511358846, guid: 33bb7310c80af3f47b38e330f1374ee4, type: 3}
+  m_PrefabInstance: {fileID: 8748623670206794213}
+  m_PrefabAsset: {fileID: 0}

@@ -140,10 +140,13 @@ MonoBehaviour:
   LevelTextSelectedSortingOrder: 0
   AttackInterval: 0
   BulletMoveDuration: 0
-  IntervalReductionAmount: 0
   DefaultScale: 0
   UnMergeableColor: {r: 0, g: 0, b: 0, a: 0}
   DefaultColor: {r: 0, g: 0, b: 0, a: 0}
+  LevelUpDamageIncrease: 
+  UpgradeDamageIncrease: 
+  LevelUpAttackIntervalReduction: []
+  UpgradeAttackIntervalReduction: []
 --- !u!114 &3297932920668979642
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -216,7 +219,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 1267714372347290533, guid: 1850e863ca07cd243bc6145e599102f8, type: 3}
-  bulletHitParticlePrefab: {fileID: 6838040144887901849, guid: 8869513446f76ba4f83935cfd5b05836, type: 3}
+  bulletHitParticlePrefab: {fileID: 4848690506697292783, guid: ac75491effb23a340a68cc9e4ebce355, type: 3}
   damagePopupPrefab: {fileID: 7798073303670970536, guid: 79f0b8119f80ad94fab053f0cef143d0, type: 3}
   attackSoundData:
     clip: {fileID: 8300000, guid: 573fb4f757b283c409f825eb44af109e, type: 3}
