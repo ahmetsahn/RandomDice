@@ -48,8 +48,9 @@ namespace Runtime.DefenderSystem.Controller
         private void OnMouseUp()
         {
             _dragging = false;
-            _signalBus.Fire(new MergeDefendersSignal(_viewModel));
             _viewModel.OnMouseUpEvent?.Invoke();
+            _signalBus.Fire(new MergeDefendersSignal(_viewModel));
+            
         }
     }
 }
