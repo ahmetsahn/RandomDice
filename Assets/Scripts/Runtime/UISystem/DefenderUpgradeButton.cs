@@ -67,22 +67,22 @@ namespace Runtime.UISystem
         
         private void UpgradeDefender(DefenderType defenderT)
         {
-            int reduceEnergy = _upgradeCost;
             _upgradeLevel++;
-            _upgradeCost = upgradeCostList[_upgradeLevel - 1];
-            _signalBus.Fire(new ReduceCurrentEnergySignal(reduceEnergy));
-            _signalBus.Fire(new UpgradeDefenderSignal(defenderT, _upgradeLevel));
             if(_upgradeLevel == MAX_LEVEL)
             {
-                _button.interactable = false;
+                _signalBus.Fire(new ReduceCurrentEnergySignal(_upgradeCost));
+                _signalBus.Fire(new UpgradeDefenderSignal(defenderT, _upgradeLevel));
                 upgradeLevelText.text = "Max";
                 upgradeCostText.text = "";
                 energyIcon.gameObject.SetActive(false);
                 return;
             }
             
+            int reduceEnergy = _upgradeCost;
+            _upgradeCost = upgradeCostList[_upgradeLevel - 1];
+            _signalBus.Fire(new ReduceCurrentEnergySignal(reduceEnergy));
+            _signalBus.Fire(new UpgradeDefenderSignal(defenderT, _upgradeLevel));
             upgradeLevelText.text = "Lv " + _upgradeLevel;
-            
             upgradeCostText.text = _upgradeCost.ToString();
         }
         

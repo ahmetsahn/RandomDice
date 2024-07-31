@@ -13,24 +13,24 @@ MonoBehaviour:
   m_Name: GreenDefender
   m_EditorClassIdentifier: 
   DefenderType: 0
-  Damage: 8
+  Damage: 11
   SpriteRendererDefaultSortingOrder: 2
   LevelTextDefaultSortingOrder: 50
-  AttackInterval: 0.525
+  AttackInterval: 0.5
   BulletMoveDuration: 0.1
   DefaultScale: 0.65
   UnMergeableColor: {r: 1, g: 1, b: 1, a: 0.19607843}
   DefaultColor: {r: 1, g: 1, b: 1, a: 1}
-  LevelUpDamageIncrease: 02000000080000001e00000096000000ee020000
-  UpgradeDamageIncrease: 01000000020000000300000004000000
+  LevelUpDamageIncrease: 050000000a0000001e0000003200000050000000
+  UpgradeDamageIncrease: 02000000040000000600000008000000
   LevelUpAttackIntervalReduction:
+  - 0.02
+  - 0.0225
   - 0.025
-  - 0.025
-  - 0.025
-  - 0.025
-  - 0.025
+  - 0.0275
+  - 0.03
   UpgradeAttackIntervalReduction:
+  - 0.02
   - 0.025
-  - 0.025
-  - 0.025
-  - 0.025
+  - 0.03
+  - 0.035

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cafd3a66952d4366b8879e76875bda9a, type: 3}
   m_Name: SquareBoss
   m_EditorClassIdentifier: 
-  MaxHealth: 4000
-  EnergyValue: 300
+  MaxHealth: 5000
+  EnergyValue: 500
   Speed: 0.5
   DefaultScale: 0.9

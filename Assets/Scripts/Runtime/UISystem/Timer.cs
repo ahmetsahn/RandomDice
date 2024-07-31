@@ -8,7 +8,7 @@ namespace Runtime.UISystem
     public class Timer : MonoBehaviour
     {
         [SerializeField]
-        private TextMeshPro timerText;
+        private TextMeshProUGUI timerText;
         
         private SignalBus _signalBus;
 
