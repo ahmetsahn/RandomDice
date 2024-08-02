@@ -2,11 +2,11 @@
 
 namespace Runtime.Signal
 {
-    public readonly struct StartDefenderAttackSignal
+    public readonly struct SetTargetSignal
     {
         public readonly IEnemy Enemy;
         
-        public StartDefenderAttackSignal(IEnemy enemy)
+        public SetTargetSignal(IEnemy enemy)
         {
             Enemy = enemy;
         }

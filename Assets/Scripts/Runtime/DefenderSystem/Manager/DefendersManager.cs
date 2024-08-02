@@ -43,7 +43,6 @@ namespace Runtime.DefenderSystem.Manager
             _signalBus.Subscribe<ShowMergeableDefendersSignal>(ShowMergeableDefenders);
             _signalBus.Subscribe<MergeDefendersSignal>(MergeDefenders);
             _signalBus.Subscribe<UpgradeDefenderSignal>(UpgradeDefender);
-            _signalBus.Subscribe<SendDefenderToBinSignal>(SendDefenderToBin);
         }
         
 
@@ -113,19 +112,6 @@ namespace Runtime.DefenderSystem.Manager
             SetDefaultColor();
             signal.Defender.Transform.DOMove(signal.Defender.InitialPosition, 0.25f);
         }
-
-        private void SendDefenderToBin(SendDefenderToBinSignal signal)
-        {
-            float distance = Vector3.Distance(signal.Defender.Transform.position, signal.Defender.Transform.position);
-            if (distance > 0.5f)
-            {
-                return;
-            }
-            
-            ObjectPoolManager.ReturnObjectToPool(signal.Defender.Transform.gameObject);
-            _defenderList.Remove(signal.Defender);
-            _signalBus.Fire(new UpdateSpawnDefenderButtonStateSignal());
-        }
         
         private void SetDefaultColor()
         {
@@ -153,7 +139,6 @@ namespace Runtime.DefenderSystem.Manager
             _signalBus.Unsubscribe<ShowMergeableDefendersSignal>(ShowMergeableDefenders);
             _signalBus.Unsubscribe<MergeDefendersSignal>(MergeDefenders);
             _signalBus.Unsubscribe<UpgradeDefenderSignal>(UpgradeDefender);
-            _signalBus.Unsubscribe<SendDefenderToBinSignal>(SendDefenderToBin);
         }
         
         private void OnDisable()

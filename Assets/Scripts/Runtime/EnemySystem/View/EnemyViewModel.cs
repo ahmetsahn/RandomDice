@@ -33,6 +33,8 @@ namespace Runtime.EnemySystem.View
         
         public Action<int> TakeDamageEvent { get; set; }
         
+        public EnemyType EnemyType { get; set; }
+        
         [Inject]
         public void Construct(SignalBus signalBus)
         {
@@ -56,6 +58,7 @@ namespace Runtime.EnemySystem.View
             DefaultScale = data.DefaultScale;
             EnergyValue = data.EnergyValue;
             HealthText.text = Health.ToString();
+            EnemyType = data.EnemyType;
         }
 
         private void Reset()

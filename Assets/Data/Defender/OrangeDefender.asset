@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: OrangeDefender
   m_EditorClassIdentifier: 
   DefenderType: 4
-  Damage: 15
+  Damage: 12
   SpriteRendererDefaultSortingOrder: 2
   LevelTextDefaultSortingOrder: 50
-  AttackInterval: 0.4
-  BulletMoveDuration: 0.1
+  AttackInterval: 0.6
+  BulletMoveDuration: 0.15
   DefaultScale: 0.65
   UnMergeableColor: {r: 1, g: 1, b: 1, a: 0.19607843}
   DefaultColor: {r: 1, g: 1, b: 1, a: 1}

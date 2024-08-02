@@ -9,5 +9,7 @@ namespace Runtime.Interface
         public int Health { get; set; }
         public Transform Transform { get; }
         public Action<int> TakeDamageEvent { get; set; }
+        
+        public EnemyType EnemyType { get; set; }
     }
 }

@@ -16,3 +16,4 @@ MonoBehaviour:
   EnergyValue: 4000
   Speed: 0.5
   DefaultScale: 0.9
+  EnemyType: 1

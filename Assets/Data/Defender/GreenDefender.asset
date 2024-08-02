@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: GreenDefender
   m_EditorClassIdentifier: 
   DefenderType: 0
-  Damage: 11
+  Damage: 8
   SpriteRendererDefaultSortingOrder: 2
   LevelTextDefaultSortingOrder: 50
-  AttackInterval: 0.5
+  AttackInterval: 0.7
   BulletMoveDuration: 0.1
   DefaultScale: 0.65
   UnMergeableColor: {r: 1, g: 1, b: 1, a: 0.19607843}

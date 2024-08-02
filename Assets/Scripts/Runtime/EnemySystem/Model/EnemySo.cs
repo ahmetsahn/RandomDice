@@ -12,5 +12,6 @@ namespace Runtime.EnemySystem.Model
         public float Speed;
         public float DefaultScale;
         
+        public EnemyType EnemyType;
     }
 }

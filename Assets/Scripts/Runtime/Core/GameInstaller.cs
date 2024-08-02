@@ -23,9 +23,6 @@ namespace Runtime.Core
             Container.DeclareSignal<SpawnMergedDefenderSignal>();
             Container.DeclareSignal<AddEnemyToListSignal>();
             Container.DeclareSignal<RemoveEnemyFromListSignal>();
-            Container.DeclareSignal<StartDefenderAttackSignal>();
-            Container.DeclareSignal<StopDefenderAttackSignal>();
-            Container.DeclareSignal<SetNewDefenderAttackTargetSignal>();
             Container.DeclareSignal<IncreaseCurrentEnergySignal>();
             Container.DeclareSignal<UpgradeDefenderSignal>();
             Container.DeclareSignal<UpdateNewDefenderUpgradeSignal>();
@@ -40,8 +37,9 @@ namespace Runtime.Core
             Container.DeclareSignal<IncreaseWaveSignal>();
             Container.DeclareSignal<ResumeTimerSignal>();
             Container.DeclareSignal<EnableBinSpriteSignal>();
-            Container.DeclareSignal<SendDefenderToBinSignal>();
             Container.DeclareSignal<AddToEmptyDefenderSpawnSlotListSignal>();
+            Container.DeclareSignal<SetTargetSignal>();
+            Container.DeclareSignal<SetTargetForNewDefenderSignal>();
         }
     }
 }

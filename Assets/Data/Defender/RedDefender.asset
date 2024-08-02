@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: RedDefender
   m_EditorClassIdentifier: 
   DefenderType: 2
-  Damage: 13
+  Damage: 10
   SpriteRendererDefaultSortingOrder: 2
   LevelTextDefaultSortingOrder: 50
-  AttackInterval: 0.45
+  AttackInterval: 0.65
   BulletMoveDuration: 0.1
   DefaultScale: 0.65
   UnMergeableColor: {r: 1, g: 1, b: 1, a: 0.19607843}

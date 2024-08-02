@@ -22,8 +22,6 @@ namespace Runtime.EnemySystem.Manager
         
         private SignalBus _signalBus;
         
-        private bool _bossSequenceIsRunning;
-        
         [Inject]
         public void Construct(SignalBus signalBus)
         {
@@ -39,65 +37,48 @@ namespace Runtime.EnemySystem.Manager
         {
             _signalBus.Subscribe<AddEnemyToListSignal>(AddEnemyToListSignal);
             _signalBus.Subscribe<RemoveEnemyFromListSignal>(RemoveEnemyFromListSignal);
-            _signalBus.Subscribe<SetNewDefenderAttackTargetSignal>(SetNewDefenderAttackTarget);
             _signalBus.Subscribe<BossSequenceSignal>(BossSequence);
+            _signalBus.Subscribe<SetTargetForNewDefenderSignal>(SetTargetForNewDefender);
         }
 
         private void AddEnemyToList(IEnemy enemy)
         {
             _enemyList.Add(enemy);
+            
+            if (_enemyList.Count == 1 && enemy.EnemyType != EnemyType.Boss)
+            {
+                _signalBus.Fire(new SetTargetSignal(_enemyList[0]));
+            }
         }
         
         private void RemoveEnemyFromList(IEnemy enemy)
         {
             _enemyList.Remove(enemy);
+            
+            if (_enemyList.Count > 0 && _enemyList[^1].EnemyType != EnemyType.Boss)
+            {
+                _signalBus.Fire(new SetTargetSignal(_enemyList[0]));
+            }
+            
+            if (_enemyList.Count == 0)
+            {
+                _signalBus.Fire(new SetTargetSignal(null));
+            }
         }
         
         private void AddEnemyToListSignal(AddEnemyToListSignal signal)
         {
             AddEnemyToList(signal.Enemy);
-            
-            if(_enemyList.Count == 1)
-            {
-                _signalBus.Fire(new StartDefenderAttackSignal(signal.Enemy));
-            }
         }
         
         private void RemoveEnemyFromListSignal(RemoveEnemyFromListSignal signal)
         {
             RemoveEnemyFromList(signal.Enemy);
-            
-            if (_enemyList.Count == 0)
-            {
-                _signalBus.Fire(new StopDefenderAttackSignal());
-                return;
-            }
-            
-            if(_enemyList.Count > 0)
-            {
-                _signalBus.Fire(new StartDefenderAttackSignal(_enemyList[0]));
-            }
-        }
-        
-        private void SetNewDefenderAttackTarget(SetNewDefenderAttackTargetSignal signal)
-        {
-            if (_enemyList.Count <= 0)
-            {
-                return;
-            }
-
-            if (_bossSequenceIsRunning)
-            {
-                return;
-            }
-            
-            _signalBus.Fire(new StartDefenderAttackSignal(_enemyList[0]));
         }
         
         private async void BossSequence(BossSequenceSignal signal)
         {
-            _bossSequenceIsRunning = true;
-            _signalBus.Fire(new StopDefenderAttackSignal());
+            _signalBus.Fire(new SetTargetSignal(null));
             _signalBus.Fire(new IsEnemyMoveableSignal(false));
             
             int enemiesTotalHealth = 0;
@@ -110,14 +91,15 @@ namespace Runtime.EnemySystem.Manager
 
             await UniTask.Delay(TimeSpan.FromSeconds(1f));
             
+            
             GameObject bossGo = ObjectPoolManager.SpawnObjectWithZenject(signal.Boss.Transform.gameObject, Vector3.zero, Quaternion.identity);
+            
             while (_enemyList.Count > 1)
             {
-                ObjectPoolManager.ReturnObjectToPool(_enemyList[0]?.Transform.gameObject);
+                ObjectPoolManager.ReturnObjectToPool(_enemyList[0].Transform.gameObject);
             }
             
             _signalBus.Fire(new IsEnemyMoveableSignal(false));
-            _signalBus.Fire(new StopDefenderAttackSignal());
             
             bossGo.transform.position = bossFirstTransform.position;
             IBoss boss = bossGo.GetComponent<IBoss>();
@@ -127,19 +109,33 @@ namespace Runtime.EnemySystem.Manager
             boss.Transform.DOMove(enemyFirstTransform.position, 1f);
             
             await UniTask.Delay(TimeSpan.FromSeconds(1.5f));
-            _bossSequenceIsRunning = false;
-            _signalBus.Fire(new StartDefenderAttackSignal(_enemyList[0]));
+            _signalBus.Fire(new SetTargetSignal(_enemyList[0]));
             
             await UniTask.Delay(TimeSpan.FromSeconds(0.5f));
             _signalBus.Fire(new IsEnemyMoveableSignal(true));
+        }
+        
+        private void SetTargetForNewDefender(SetTargetForNewDefenderSignal signal)
+        {
+            if (_enemyList.Count == 0)
+            {
+                return;
+            }
+            
+            if (_enemyList[0].EnemyType == EnemyType.Boss)
+            {
+                return;
+            }
+            
+            _signalBus.Fire(new SetTargetSignal(_enemyList[0]));
         }
 
         private void UnsubscribeEvents()
         {
             _signalBus.Unsubscribe<AddEnemyToListSignal>(AddEnemyToListSignal);
             _signalBus.Unsubscribe<RemoveEnemyFromListSignal>(RemoveEnemyFromListSignal);
-            _signalBus.Unsubscribe<SetNewDefenderAttackTargetSignal>(SetNewDefenderAttackTarget);
             _signalBus.Unsubscribe<BossSequenceSignal>(BossSequence);
+            _signalBus.Unsubscribe<SetTargetForNewDefenderSignal>(SetTargetForNewDefender);
         }
 
         private void OnDisable()

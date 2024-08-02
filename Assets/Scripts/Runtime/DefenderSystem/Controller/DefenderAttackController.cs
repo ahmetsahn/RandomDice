@@ -5,6 +5,8 @@ using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Runtime.Core.Pool;
 using Runtime.DefenderSystem.View;
+using Runtime.EnemySystem.Manager;
+using Runtime.Interface;
 using Runtime.Signal;
 using UnityEngine;
 using Zenject;
@@ -24,14 +26,14 @@ namespace Runtime.DefenderSystem.Controller
         [SerializeField]
         private GameObject damagePopupPrefab;
         
-        private CancellationTokenSource _attackCancellationTokenSource = new();
-        
         private SignalBus _signalBus;
         
         [SerializeField]
         private SoundData attackSoundData;
         
         private bool _isBossSequenceRunning;
+        
+        private IEnemy _currenEnemy;
         
         [Inject]
         private void Construct(DefenderViewModel viewModel, SignalBus signalBus)
@@ -43,40 +45,49 @@ namespace Runtime.DefenderSystem.Controller
         private void OnEnable()
         {
             SubscribeEvents();
-            _signalBus.Fire(new SetNewDefenderAttackTargetSignal());
+            _signalBus.Fire(new SetTargetForNewDefenderSignal());
+            StartDefenderAttack();
         }
         
         private void SubscribeEvents()
         {
-            _signalBus.Subscribe<StopDefenderAttackSignal>(StopAttack);
-            _signalBus.Subscribe<StartDefenderAttackSignal>(StartDefenderAttack);
-            _signalBus.Subscribe<BossSequenceSignal>(StopAttack);
+            _signalBus.Subscribe<SetTargetSignal>(SetTarget);
         }
-
-        private void StartDefenderAttack(StartDefenderAttackSignal signal)
+        
+        private void SetTarget(SetTargetSignal signal)
         {
-            _attackCancellationTokenSource?.Cancel();
-            _attackCancellationTokenSource = new CancellationTokenSource();
-            Attack(signal, _attackCancellationTokenSource.Token).Forget();
-        }
-
-        private async UniTask Attack(StartDefenderAttackSignal signal, CancellationToken attackCancellationTokenSource)
-        {
-            await UniTask.Delay(TimeSpan.FromSeconds(_viewModel.AttackInterval), cancellationToken: attackCancellationTokenSource);
+            if (_currenEnemy == null)
+            {
+                _currenEnemy = signal.Enemy;
+                StartDefenderAttack();
+                return;
+            }
             
-            while (!attackCancellationTokenSource.IsCancellationRequested)
+            _currenEnemy = signal.Enemy;
+        }
+
+        private void StartDefenderAttack()
+        {
+            Attack().Forget();
+        }
+        
+        private async UniTask Attack()
+        {
+            await UniTask.Delay(TimeSpan.FromSeconds(0.05f));
+            
+            while (_currenEnemy != null)
             {
                 GameObject bullet = ObjectPoolManager.SpawnObject(bulletPrefab, _viewModel.transform.position, Quaternion.identity);
-                bullet.transform.DOMove(signal.Enemy.Transform.position, _viewModel.BulletMoveDuration).OnComplete(() =>
+                bullet.transform.DOMove(_currenEnemy.Transform.position, _viewModel.BulletMoveDuration).OnComplete(() =>
                 {
                     CreateBulletHitParticle(bullet.transform);
                     CreateDamagePopup(bullet.transform, _viewModel.Damage);
                     SoundManager.Instance.CreateSoundBuilder().WithRandomPitch().WithPosition(bullet.transform.position).Play(attackSoundData);
-                    signal.Enemy.TakeDamageEvent?.Invoke(_viewModel.Damage);
                     ObjectPoolManager.ReturnObjectToPool(bullet);
+                    _currenEnemy?.TakeDamageEvent?.Invoke(_viewModel.Damage);
                 });
 
-                await UniTask.Delay(TimeSpan.FromSeconds(_viewModel.AttackInterval), cancellationToken: attackCancellationTokenSource);
+                await UniTask.Delay(TimeSpan.FromSeconds(_viewModel.AttackInterval));
             }
         }
         
@@ -93,22 +104,15 @@ namespace Runtime.DefenderSystem.Controller
             _signalBus.Fire(new SetDamagePopupTextSignal(damage));
         }
         
-        private void StopAttack()
-        {
-            _attackCancellationTokenSource.Cancel();
-        }
-        
         private void UnsubscribeEvents()
         {
-            _signalBus.Unsubscribe<StopDefenderAttackSignal>(StopAttack);
-            _signalBus.Unsubscribe<StartDefenderAttackSignal>(StartDefenderAttack);
-            _signalBus.Unsubscribe<BossSequenceSignal>(StopAttack);
+            _signalBus.Unsubscribe<SetTargetSignal>(SetTarget);
         }
         
         private void OnDisable()
         {
-            StopAttack();
             UnsubscribeEvents();
+            _currenEnemy = null;
         }
     }
 }
