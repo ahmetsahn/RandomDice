@@ -8,27 +8,17 @@ using Zenject;
 
 namespace Runtime.DefenderSystem.Controller
 {
-    public class DefenderVisualController : MonoBehaviour
+    public class DefenderVisualController : IDisposable
     {
-        private DefenderViewModel _viewModel;
+        private readonly DefenderViewModel _viewModel;
         
         private CancellationTokenSource _upgradeCancellationTokenSource = new();
         
-        [Inject]
-        private void Construct(DefenderViewModel viewModel)
+        public DefenderVisualController(DefenderViewModel viewModel)
         {
             _viewModel = viewModel;
-        }
-        
-        private void OnEnable()
-        {
+            
             SubscribeEvents();
-            SetDefaultScale();
-        }
-        
-        private void SetDefaultScale()
-        {
-            _viewModel.transform.DOScale(_viewModel.DefaultScale, 0.3f).SetEase(Ease.OutBack);
         }
         
         private void SubscribeEvents()
@@ -38,6 +28,7 @@ namespace Runtime.DefenderSystem.Controller
             _viewModel.UpgradeDefenderEvent += UpgradeDefenderEvent;
             _viewModel.OnMouseDownEvent += OnMouseDownEvent;
             _viewModel.OnMouseUpEvent += OnMouseUpEvent;
+            _viewModel.OnEnableEvent += SetDefaultScale;
         }
         
         private void OnMergeable()
@@ -80,6 +71,11 @@ namespace Runtime.DefenderSystem.Controller
             _viewModel.SpriteRenderer.sortingOrder = _viewModel.SpriteRendererDefaultSortingOrder;
             _viewModel.LevelText.sortingOrder = _viewModel.LevelTextDefaultSortingOrder;
         }
+        
+        private void SetDefaultScale()
+        {
+            _viewModel.transform.DOScale(_viewModel.DefaultScale, 0.3f).SetEase(Ease.OutBack);
+        }
 
         private void UnsubscribeEvents()
         {
@@ -88,9 +84,11 @@ namespace Runtime.DefenderSystem.Controller
             _viewModel.UpgradeDefenderEvent -= UpgradeDefenderEvent;
             _viewModel.OnMouseDownEvent -= OnMouseDownEvent;
             _viewModel.OnMouseUpEvent -= OnMouseUpEvent;
+            _viewModel.OnEnableEvent -= SetDefaultScale;
         }
         
-        private void OnDisable()
+
+        public void Dispose()
         {
             UnsubscribeEvents();
         }

@@ -1,31 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
+using AudioSystem;
 using Runtime.DefenderSystem.Model;
 using Runtime.Enum;
 using Runtime.Interface;
 using Runtime.Signal;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Zenject;
 
 namespace Runtime.DefenderSystem.View
 {
     public class DefenderViewModel : MonoBehaviour, IDefender      
     {
+        #region View
+
         [Header("View")]
         public SpriteRenderer SpriteRenderer;
         
         public TextMeshPro LevelText;
         public TextMeshPro LevelUpgradeText;
+
+        #endregion
         
-        public GameObject UpgradeParticleGameObject;
-        
+        #region Model
+
         [Header("Model")]
         [SerializeField]
-        private DefenderSo model;
+        private DefenderSo data;
         
-        
+        [HideInInspector]
         public int Damage;
         [HideInInspector]
         public int SpriteRendererDefaultSortingOrder;
@@ -36,7 +40,7 @@ namespace Runtime.DefenderSystem.View
         [HideInInspector]
         public int LevelTextSelectedSortingOrder;
         
-        
+        [HideInInspector]
         public float AttackInterval;
         [HideInInspector]
         public float BulletMoveDuration;
@@ -57,15 +61,29 @@ namespace Runtime.DefenderSystem.View
         [HideInInspector]
         public List<float> UpgradeAttackIntervalReduction;
         
-        public DefenderType DefenderType => model.DefenderType;
+        public GameObject UpgradeParticleGameObject;
+        public GameObject BulletPrefab;
+        public GameObject BulletHitParticlePrefab;
+        public GameObject DamagePopupPrefab;
+        
+        public SoundData AttackSoundData;
+        
+        public DefenderType DefenderType => data.DefenderType;
         
         public Transform Transform => transform;
         
         public Vector3 InitialPosition { get; set; }
+        
         public int Level { get; set; } = 1;
 
-        public Action OnMouseDownEvent;
-        public Action OnMouseUpEvent;
+        #endregion
+
+        #region Internal Events
+        
+        public event Action OnMouseDownEvent;
+        public event Action OnMouseUpEvent;
+        public event Action OnEnableEvent;
+        public event Action OnDisableEvent;
         
         public Action SetDefaultLevelEvent { get; set; }
         public Action SetDefaultColorEvent { get; set; }
@@ -75,7 +93,13 @@ namespace Runtime.DefenderSystem.View
         public Action<int> UpgradeDefenderEvent { get; set; }
         public Action<int> UpgradeNewDefenderEvent { get; set; }
         
+        #endregion
+        
+        #region Variables
+        
         private SignalBus _signalBus;
+        
+        #endregion
         
         [Inject]
         public void Construct(SignalBus signalBus)
@@ -91,37 +115,58 @@ namespace Runtime.DefenderSystem.View
         private void OnEnable()
         {
             _signalBus.Fire(new AddDefenderToListSignal(this));
+            _signalBus.Fire(new UpdateNewDefenderUpgradeSignal(this));
+            _signalBus.Fire(new SetTargetForNewDefenderSignal());
+            OnEnableEvent?.Invoke();
+            SetInitialPosition();
+        }
+
+        private void SetInitialPosition()
+        {
             InitialPosition = transform.position;
+        }
+
+        private void OnMouseDown()
+        {
+            OnMouseDownEvent?.Invoke();
+            _signalBus.Fire(new ShowMergeableDefendersSignal(this));
+        }
+        
+        private void OnMouseUp()
+        {
+            OnMouseUpEvent?.Invoke();
+            _signalBus.Fire(new MergeDefendersSignal(this));
         }
 
         private void SetDefaultData()
         {
-            Damage = model.Damage;
-            LevelTextDefaultSortingOrder = model.LevelTextDefaultSortingOrder;
-            LevelTextSelectedSortingOrder = model.LevelTextDefaultSortingOrder + 2;
-            SpriteRendererDefaultSortingOrder = model.SpriteRendererDefaultSortingOrder;
-            SpriteRendererSelectedSortingOrder = model.LevelTextDefaultSortingOrder + 1;
-            AttackInterval = model.AttackInterval;
-            UnMergeableColor = model.UnMergeableColor;
-            DefaultColor = model.DefaultColor;
-            BulletMoveDuration = model.BulletMoveDuration;
-            DefaultScale = model.DefaultScale;
-            LevelUpDamageIncrease = model.LevelUpDamageIncrease;
-            UpgradeDamageIncrease = model.UpgradeDamageIncrease;
-            LevelUpAttackIntervalReduction = model.LevelUpAttackIntervalReduction;
-            UpgradeAttackIntervalReduction = model.UpgradeAttackIntervalReduction;
+            Damage = data.Damage;
+            LevelTextDefaultSortingOrder = data.LevelTextDefaultSortingOrder;
+            LevelTextSelectedSortingOrder = data.LevelTextDefaultSortingOrder + 2;
+            SpriteRendererDefaultSortingOrder = data.SpriteRendererDefaultSortingOrder;
+            SpriteRendererSelectedSortingOrder = data.LevelTextDefaultSortingOrder + 1;
+            AttackInterval = data.AttackInterval;
+            UnMergeableColor = data.UnMergeableColor;
+            DefaultColor = data.DefaultColor;
+            BulletMoveDuration = data.BulletMoveDuration;
+            DefaultScale = data.DefaultScale;
+            LevelUpDamageIncrease = data.LevelUpDamageIncrease;
+            UpgradeDamageIncrease = data.UpgradeDamageIncrease;
+            LevelUpAttackIntervalReduction = data.LevelUpAttackIntervalReduction;
+            UpgradeAttackIntervalReduction = data.UpgradeAttackIntervalReduction;
         }
 
         private void Reset()
         {
-            Damage = model.Damage;
-            AttackInterval = model.AttackInterval;
+            Damage = data.Damage;
+            AttackInterval = data.AttackInterval;
             transform.localScale = Vector3.zero;
         }
         
         private void OnDisable()
         {
             _signalBus.Fire(new RemoveDefenderFromListSignal(this));
+            OnDisableEvent?.Invoke();
             Reset();
         }
     }

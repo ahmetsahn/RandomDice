@@ -1,56 +1,68 @@
-﻿using Runtime.DefenderSystem.View;
+﻿using System;
+using Runtime.DefenderSystem.View;
 using Runtime.Signal;
 using UnityEngine;
 using Zenject;
 
 namespace Runtime.DefenderSystem.Controller
 {
-    public class DefenderDragController : MonoBehaviour
+    public class DefenderDragController : ITickable, IDisposable
     {
-        private DefenderViewModel _viewModel;
-        
-        private SignalBus _signalBus;
+        private readonly DefenderViewModel _viewModel;
         
         private Camera _camera;
         
         private bool _dragging;
         
         private Vector3 _offset;
-
-        [Inject]
-        private void Construct(DefenderViewModel viewModel, SignalBus signalBus)
+        
+        public DefenderDragController(DefenderViewModel viewModel)
         {
             _viewModel = viewModel;
-            _signalBus = signalBus;
+            
+            SubscribeEvents();
+            Initialize();
+        }
+        
+        private void SubscribeEvents()
+        {
+            _viewModel.OnMouseDownEvent += OnMouseDown;
+            _viewModel.OnMouseUpEvent += OnMouseUp;
         }
 
-        private void Awake()
+        private void Initialize()
         {
             _camera = Camera.main;
-        }
-
-        public void Update()
-        {
-            if (_dragging)
-            {
-                _viewModel.transform.position = _camera.ScreenToWorldPoint(Input.mousePosition) + _offset;
-            }
         }
 
         private void OnMouseDown()
         {
             _offset = _viewModel.transform.position - _camera.ScreenToWorldPoint(Input.mousePosition);
             _dragging = true;
-            _signalBus.Fire(new ShowMergeableDefendersSignal(_viewModel));
-            _viewModel.OnMouseDownEvent?.Invoke();
         }
 
         private void OnMouseUp()
         {
             _dragging = false;
-            _viewModel.OnMouseUpEvent?.Invoke();
-            _signalBus.Fire(new MergeDefendersSignal(_viewModel));
-            
+        }
+
+        public void Tick()
+        {
+            if (_dragging)
+            {
+                _viewModel.transform.position = _camera.ScreenToWorldPoint(Input.mousePosition) + _offset;
+            }
+        }
+        
+        private void UnsubscribeEvents()
+        {
+            _viewModel.OnMouseDownEvent -= OnMouseDown;
+            _viewModel.OnMouseUpEvent -= OnMouseUp;
+        }
+        
+        public void Dispose()
+        {
+            UnsubscribeEvents();
         }
     }
 }

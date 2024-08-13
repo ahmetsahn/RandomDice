@@ -1,29 +1,22 @@
-﻿using Runtime.DefenderSystem.View;
+﻿using System;
+using Runtime.DefenderSystem.View;
 using Runtime.Signal;
 using UnityEngine;
 using Zenject;
 
 namespace Runtime.DefenderSystem.Controller
 {
-    public class DefenderUpgradeController : MonoBehaviour
+    public class DefenderUpgradeController : IDisposable
     {
-        private DefenderViewModel _viewModel;
-        
-        private SignalBus _signalBus;
+        private readonly DefenderViewModel _viewModel;
         
         private const int MAX_LEVEL = 6;
         
-        [Inject]
-        private void Construct(DefenderViewModel viewModel, SignalBus signalBus)
+        public DefenderUpgradeController(DefenderViewModel viewModel)
         {
             _viewModel = viewModel;
-            _signalBus = signalBus;
-        }
-
-        private void OnEnable()
-        {
+            
             SubscribeEvents();
-            _signalBus.Fire(new UpdateNewDefenderUpgradeSignal(_viewModel));
         }
         
         private void SubscribeEvents()
@@ -76,8 +69,8 @@ namespace Runtime.DefenderSystem.Controller
             _viewModel.UpgradeDefenderEvent -= OnUpgradeDefender;
             _viewModel.UpgradeNewDefenderEvent -= OnUpgradeNewDefender;
         }
-        
-        private void OnDisable()
+
+        public void Dispose()
         {
             UnsubscribeEvents();
         }

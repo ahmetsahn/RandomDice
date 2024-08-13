@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using DG.Tweening;
 using Runtime.Core.Pool;
 using Runtime.Signal;
 using UnityEngine;

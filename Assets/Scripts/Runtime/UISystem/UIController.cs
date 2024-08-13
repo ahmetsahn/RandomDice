@@ -1,5 +1,4 @@
-﻿using System;
-using AudioSystem;
+﻿using AudioSystem;
 using Runtime.Signal;
 using TMPro;
 using UnityEngine;

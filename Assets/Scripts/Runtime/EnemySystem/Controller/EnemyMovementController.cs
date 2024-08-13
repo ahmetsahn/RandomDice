@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using System;
+using DG.Tweening;
 using Runtime.Core.Pool;
 using Runtime.EnemySystem.View;
 using Runtime.Signal;
@@ -7,9 +8,11 @@ using Zenject;
 
 namespace Runtime.EnemySystem.Controller
 {
-    public class EnemyMovementController : MonoBehaviour
+    public class EnemyMovementController : IDisposable
     {
-        private EnemyViewModel _viewModel;
+        private readonly EnemyViewModel _viewModel;
+        
+        private readonly SignalBus _signalBus;
         
         private Transform _pathArrayParent;
         
@@ -17,19 +20,14 @@ namespace Runtime.EnemySystem.Controller
         
         private Tween _moveTween;
         
-        private SignalBus _signalBus;
-        
         private const string PATH_PARENT_NAME = "EnemyPath";
         
-        [Inject]
-        private void Construct(EnemyViewModel viewModel, SignalBus signalBus)
+        public EnemyMovementController(EnemyViewModel viewModel, SignalBus signalBus)
         {
             _viewModel = viewModel;
             _signalBus = signalBus;
-        }
-        
-        private void Awake()
-        {
+            
+            SubscribeEvents();
             SetPathArray();
         }
 
@@ -47,7 +45,6 @@ namespace Runtime.EnemySystem.Controller
         
         private void OnEnable()
         {
-            SubscribeEvents();
             SetInitialPosition();
             Move();
         }
@@ -55,6 +52,8 @@ namespace Runtime.EnemySystem.Controller
         private void SubscribeEvents()
         {
             _signalBus.Subscribe<IsEnemyMoveableSignal>(IsEnemyMoveable);
+            _viewModel.OnEnableEvent += OnEnable;
+            _viewModel.OnDisableEvent += OnDisable;
         }
         
         private void SetInitialPosition()
@@ -91,7 +90,7 @@ namespace Runtime.EnemySystem.Controller
             _moveTween.Kill();
         }
 
-        private void Reset()
+        private void OnDisable()
         {
             KillMoveTween();
         }
@@ -99,12 +98,13 @@ namespace Runtime.EnemySystem.Controller
         private void UnsubscribeEvents()
         {
             _signalBus.Unsubscribe<IsEnemyMoveableSignal>(IsEnemyMoveable);
+            _viewModel.OnEnableEvent -= OnEnable;
+            _viewModel.OnDisableEvent -= OnDisable;
         }
-        
-        private void OnDisable()
+
+        public void Dispose()
         {
             UnsubscribeEvents();
-            Reset();
         }
     }
 }
