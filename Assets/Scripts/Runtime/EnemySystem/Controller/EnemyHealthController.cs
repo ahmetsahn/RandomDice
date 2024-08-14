@@ -1,23 +1,26 @@
-﻿using System;
-using Runtime.Core.Pool;
+﻿using Runtime.Core.Pool;
 using Runtime.EnemySystem.View;
 using Runtime.Signal;
+using UnityEngine;
 using Zenject;
 
 namespace Runtime.EnemySystem.Controller
 {
-    public class EnemyHealthController : IDisposable
+    public class EnemyHealthController : MonoBehaviour
     {
-        private readonly EnemyViewModel _viewModel;
+        private EnemyViewModel _viewModel;
         
-        private readonly SignalBus _signalBus;
+        private SignalBus _signalBus;
 
         [Inject]
-        public EnemyHealthController(EnemyViewModel viewModel, SignalBus signalBus)
+        private void Construct(EnemyViewModel viewModel, SignalBus signalBus)
         {
             _viewModel = viewModel;
             _signalBus = signalBus;
-            
+        }
+
+        private void OnEnable()
+        {
             SubscribeEvents();
         }
         
@@ -30,22 +33,20 @@ namespace Runtime.EnemySystem.Controller
         {
             _viewModel.Health -= damage;
             _viewModel.HealthText.text = _viewModel.Health.ToString();
-
-            if (_viewModel.Health > 0)
-            {
-                return;
-            }
             
-            _signalBus.Fire(new IncreaseCurrentEnergySignal(_viewModel.EnergyValue));
-            ObjectPoolManager.ReturnObjectToPool(_viewModel.gameObject);
+            if (_viewModel.Health <= 0)
+            {
+                _signalBus.Fire(new IncreaseCurrentEnergySignal(_viewModel.EnergyValue));
+                ObjectPoolManager.ReturnObjectToPool(_viewModel.gameObject);
+            }
         }
         
         private void UnsubscribeEvents()
         {
             _viewModel.TakeDamageEvent -= TakeDamage;
         }
-
-        public void Dispose()
+        
+        private void OnDisable()
         {
             UnsubscribeEvents();
         }

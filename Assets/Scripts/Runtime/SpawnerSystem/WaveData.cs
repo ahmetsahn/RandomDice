@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Runtime.EnemySystem.View;
+using UnityEngine;
 
 namespace Runtime.SpawnerSystem
 {
@@ -13,6 +14,9 @@ namespace Runtime.SpawnerSystem
         
         public List<float> SpawnInterval;
         public List<float> WaitingTimeBetweenEnemyTypes;
+
+        [HideInInspector] 
+        public string WaveTime;
         
         public float WaitingTimeBossSpawn;
         

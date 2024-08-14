@@ -11,15 +11,9 @@ namespace Runtime.EnemySystem.View
 {
     public class EnemyViewModel : MonoBehaviour, IEnemy
     {
-        #region View
-
         [Header("View")]
         public TextMeshPro HealthText;
-
-        #endregion
-
-        #region Model
-
+        
         [Header("Model")]
         [SerializeField]
         private EnemySo data;
@@ -31,29 +25,15 @@ namespace Runtime.EnemySystem.View
         
         [HideInInspector]
         public int EnergyValue;
-        
-        public int Health { get; set; }
-        
-        public Transform Transform => transform;
-        
-        public EnemyType EnemyType { get; set; }
-
-        #endregion
-
-        #region InternalEvents
-
-        public event Action OnEnableEvent;
-        public event Action OnDisableEvent;
-        
-        public Action<int> TakeDamageEvent { get; set; }
-
-        #endregion
-
-        #region Variables
 
         private SignalBus _signalBus;
-
-        #endregion
+        
+        public int Health { get; set; }
+        public Transform Transform => transform;
+        
+        public Action<int> TakeDamageEvent { get; set; }
+        
+        public EnemyType EnemyType { get; set; }
         
         [Inject]
         public void Construct(SignalBus signalBus)
@@ -69,7 +49,6 @@ namespace Runtime.EnemySystem.View
         private void OnEnable()
         {
             _signalBus.Fire(new AddEnemyToListSignal(this));
-            OnEnableEvent?.Invoke();
         }
 
         private void SetDefaultData()
@@ -92,7 +71,6 @@ namespace Runtime.EnemySystem.View
         private void OnDisable()
         {
             _signalBus.Fire(new RemoveEnemyFromListSignal(this));
-            OnDisableEvent?.Invoke();
             Reset();
         }
     }

@@ -1,25 +1,23 @@
-﻿using System;
-using DG.Tweening;
+﻿using DG.Tweening;
 using Runtime.EnemySystem.View;
 using UnityEngine;
+using Zenject;
 
 namespace Runtime.EnemySystem.Controller
 {
-    public class EnemyVisualController : IDisposable
+    public class EnemyVisualController : MonoBehaviour
     {
-        private readonly EnemyViewModel _viewModel;
+        private EnemyViewModel _viewModel;
         
-        public EnemyVisualController(EnemyViewModel viewModel)
+        [Inject]
+        private void Construct(EnemyViewModel viewModel)
         {
             _viewModel = viewModel;
-            
-            SubscribeEvents();
         }
-        
-        private void SubscribeEvents()
+
+        private void OnEnable()
         {
-            _viewModel.OnEnableEvent += SetDefaultScale;
-            _viewModel.OnDisableEvent += ResetScale;
+            SetDefaultScale();
         }
         
         private void SetDefaultScale()
@@ -29,18 +27,17 @@ namespace Runtime.EnemySystem.Controller
         
         private void ResetScale()
         {
-            _viewModel.transform.localScale = Vector3.zero;
+            transform.localScale = Vector3.zero;
         }
         
-        private void UnsubscribeEvents()
+        private void Reset()
         {
-            _viewModel.OnEnableEvent -= SetDefaultScale;
-            _viewModel.OnDisableEvent -= ResetScale;
+            ResetScale();
         }
         
-        public void Dispose()
+        private void OnDisable()
         {
-            UnsubscribeEvents();
+            Reset();
         }
     }
 }

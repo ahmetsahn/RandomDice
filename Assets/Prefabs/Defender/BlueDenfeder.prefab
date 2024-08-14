@@ -12,8 +12,12 @@ GameObject:
   - component: {fileID: 6404903031794135002}
   - component: {fileID: 2219712349914537560}
   - component: {fileID: 7373098685915248287}
+  - component: {fileID: 3297932920668979642}
   - component: {fileID: 1729463633277525993}
-  - component: {fileID: 8096337234550177423}
+  - component: {fileID: 6946104109702528477}
+  - component: {fileID: 2736253931061340914}
+  - component: {fileID: 3793055085938355485}
+  - component: {fileID: 9101332353307370060}
   m_Layer: 0
   m_Name: BlueDenfeder
   m_TagString: Untagged
@@ -127,7 +131,8 @@ MonoBehaviour:
   SpriteRenderer: {fileID: 2219712349914537560}
   LevelText: {fileID: 6489113776188170569}
   LevelUpgradeText: {fileID: 6342612898256675093}
-  data: {fileID: 11400000, guid: 67b12449e96a1094d8d58e0633021b60, type: 2}
+  UpgradeParticleGameObject: {fileID: 5851255496126610835}
+  model: {fileID: 11400000, guid: 67b12449e96a1094d8d58e0633021b60, type: 2}
   Damage: 0
   SpriteRendererDefaultSortingOrder: 0
   SpriteRendererSelectedSortingOrder: 0
@@ -142,13 +147,83 @@ MonoBehaviour:
   UpgradeDamageIncrease: 
   LevelUpAttackIntervalReduction: []
   UpgradeAttackIntervalReduction: []
-  UpgradeParticleGameObject: {fileID: 5851255496126610835}
-  BulletPrefab: {fileID: 1267714372347290533, guid: 1850e863ca07cd243bc6145e599102f8, type: 3}
-  BulletHitParticlePrefab: {fileID: 4848690506697292783, guid: ac75491effb23a340a68cc9e4ebce355, type: 3}
-  DamagePopupPrefab: {fileID: 7798073303670970536, guid: 79f0b8119f80ad94fab053f0cef143d0, type: 3}
-  AttackSoundData:
+--- !u!114 &3297932920668979642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7639836902727207065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0166d8ff8d905b048b2448179e1f5d11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _components:
+  - {fileID: 7373098685915248287}
+  _identifier: 
+  _useSceneContext: 0
+  _context: {fileID: 0}
+  _bindType: 0
+--- !u!114 &1729463633277525993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7639836902727207065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08eca9f7688a0a24685b89133b020c8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _scriptableObjectInstallers: []
+  _monoInstallers: []
+  _installerPrefabs: []
+  _autoRun: 1
+  _kernel: {fileID: 0}
+--- !u!114 &6946104109702528477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7639836902727207065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 386be58051b34d829cdf3074b4234581, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2736253931061340914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7639836902727207065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03f0a4026ac24500842174f6d88718c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3793055085938355485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7639836902727207065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68e6bd6370b14b8685f9e28afc52190e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 1267714372347290533, guid: 1850e863ca07cd243bc6145e599102f8, type: 3}
+  bulletHitParticlePrefab: {fileID: 4848690506697292783, guid: ac75491effb23a340a68cc9e4ebce355, type: 3}
+  damagePopupPrefab: {fileID: 7798073303670970536, guid: 79f0b8119f80ad94fab053f0cef143d0, type: 3}
+  attackSoundData:
     clip: {fileID: 8300000, guid: 573fb4f757b283c409f825eb44af109e, type: 3}
-    mixerGroup: {fileID: 0}
+    mixerGroup: {fileID: 4796280562796518393, guid: 0648aff6a08d3f0468df28399773aba6, type: 2}
     loop: 0
     playOnAwake: 0
     frequentSound: 1
@@ -169,7 +244,7 @@ MonoBehaviour:
     ignoreListenerVolume: 0
     ignoreListenerPause: 0
     rolloffMode: 0
---- !u!114 &1729463633277525993
+--- !u!114 &9101332353307370060
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -178,25 +253,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7639836902727207065}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08eca9f7688a0a24685b89133b020c8e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _scriptableObjectInstallers: []
-  _monoInstallers:
-  - {fileID: 8096337234550177423}
-  _installerPrefabs: []
-  _autoRun: 1
-  _kernel: {fileID: 0}
---- !u!114 &8096337234550177423
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7639836902727207065}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30ac09c65e2d4eb1b5ea3a5be772b76a, type: 3}
+  m_Script: {fileID: 11500000, guid: 94698d78394e4b9eb494dfa5b9096cec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &6123285183329481530
