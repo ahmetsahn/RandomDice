@@ -34,3 +34,29 @@ MonoBehaviour:
   - 0.025
   - 0.03
   - 0.035
+  BulletPrefab: {fileID: 1267714372347290533, guid: 1850e863ca07cd243bc6145e599102f8, type: 3}
+  BulletHitParticlePrefab: {fileID: 4848690506697292783, guid: ac75491effb23a340a68cc9e4ebce355, type: 3}
+  DamagePopupPrefab: {fileID: 7798073303670970536, guid: 79f0b8119f80ad94fab053f0cef143d0, type: 3}
+  AttackSoundData:
+    clip: {fileID: 8300000, guid: 573fb4f757b283c409f825eb44af109e, type: 3}
+    mixerGroup: {fileID: 4796280562796518393, guid: 0648aff6a08d3f0468df28399773aba6, type: 2}
+    loop: 0
+    playOnAwake: 0
+    frequentSound: 1
+    mute: 0
+    bypassEffects: 0
+    bypassListenerEffects: 0
+    bypassReverbZones: 0
+    priority: 128
+    volume: 0.15
+    pitch: 1
+    panStereo: 0
+    spatialBlend: 0
+    reverbZoneMix: 1
+    dopplerLevel: 1
+    spread: 0
+    minDistance: 1
+    maxDistance: 500
+    ignoreListenerVolume: 0
+    ignoreListenerPause: 0
+    rolloffMode: 0

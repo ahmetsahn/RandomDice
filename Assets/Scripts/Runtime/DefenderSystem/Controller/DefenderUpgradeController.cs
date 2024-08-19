@@ -11,8 +11,6 @@ namespace Runtime.DefenderSystem.Controller
         
         private SignalBus _signalBus;
         
-        private const int MAX_LEVEL = 6;
-        
         [Inject]
         private void Construct(DefenderViewModel viewModel, SignalBus signalBus)
         {
@@ -37,7 +35,7 @@ namespace Runtime.DefenderSystem.Controller
         private void OnLevelUp(int level)
         {
             _viewModel.Level = level + 1;
-            if(_viewModel.Level == MAX_LEVEL)
+            if(_viewModel.Level == _viewModel.MaxLevel)
             {
                 _viewModel.LevelText.fontSize = 15;
                 _viewModel.LevelText.text = "MAX";

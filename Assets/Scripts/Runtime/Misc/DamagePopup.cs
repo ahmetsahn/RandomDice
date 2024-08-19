@@ -1,5 +1,4 @@
-﻿using System;
-using DG.Tweening;
+﻿using DG.Tweening;
 using Runtime.Core.Pool;
 using Runtime.Signal;
 using TMPro;

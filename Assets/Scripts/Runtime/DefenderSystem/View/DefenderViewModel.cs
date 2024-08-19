@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using AudioSystem;
 using Runtime.DefenderSystem.Model;
 using Runtime.Enum;
 using Runtime.Interface;
 using Runtime.Signal;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Zenject;
 
 namespace Runtime.DefenderSystem.View
@@ -25,7 +25,9 @@ namespace Runtime.DefenderSystem.View
         [SerializeField]
         private DefenderSo model;
         
-        
+        [HideInInspector]
+        public int MaxLevel;
+        [HideInInspector]
         public int Damage;
         [HideInInspector]
         public int SpriteRendererDefaultSortingOrder;
@@ -36,7 +38,7 @@ namespace Runtime.DefenderSystem.View
         [HideInInspector]
         public int LevelTextSelectedSortingOrder;
         
-        
+        [HideInInspector]
         public float AttackInterval;
         [HideInInspector]
         public float BulletMoveDuration;
@@ -57,16 +59,26 @@ namespace Runtime.DefenderSystem.View
         [HideInInspector]
         public List<float> UpgradeAttackIntervalReduction;
         
+        [HideInInspector]
+        public GameObject BulletPrefab;
+        [HideInInspector]
+        public GameObject BulletHitParticlePrefab;
+        [HideInInspector]
+        public GameObject DamagePopupPrefab;
+        
+        [HideInInspector]
+        public SoundData AttackSoundData;
+        
         public DefenderType DefenderType => model.DefenderType;
         
         public Transform Transform => transform;
         
         public Vector3 InitialPosition { get; set; }
+        
         public int Level { get; set; } = 1;
 
         public Action OnMouseDownEvent;
         public Action OnMouseUpEvent;
-        
         public Action SetDefaultLevelEvent { get; set; }
         public Action SetDefaultColorEvent { get; set; }
         public Action SetUnMergeableColorEvent { get; set; }
@@ -96,6 +108,7 @@ namespace Runtime.DefenderSystem.View
 
         private void SetDefaultData()
         {
+            MaxLevel = model.MaxLevel;
             Damage = model.Damage;
             LevelTextDefaultSortingOrder = model.LevelTextDefaultSortingOrder;
             LevelTextSelectedSortingOrder = model.LevelTextDefaultSortingOrder + 2;
@@ -110,6 +123,10 @@ namespace Runtime.DefenderSystem.View
             UpgradeDamageIncrease = model.UpgradeDamageIncrease;
             LevelUpAttackIntervalReduction = model.LevelUpAttackIntervalReduction;
             UpgradeAttackIntervalReduction = model.UpgradeAttackIntervalReduction;
+            BulletPrefab = model.BulletPrefab;
+            BulletHitParticlePrefab = model.BulletHitParticlePrefab;
+            DamagePopupPrefab = model.DamagePopupPrefab;
+            AttackSoundData = model.AttackSoundData;
         }
 
         private void Reset()

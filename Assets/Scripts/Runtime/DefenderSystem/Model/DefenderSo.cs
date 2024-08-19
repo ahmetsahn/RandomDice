@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
+using AudioSystem;
 using Runtime.Enum;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Runtime.DefenderSystem.Model
 {
@@ -10,6 +10,7 @@ namespace Runtime.DefenderSystem.Model
     {
         public DefenderType DefenderType;
         
+        public int MaxLevel;
         public int Damage;
         public int SpriteRendererDefaultSortingOrder;
         public int LevelTextDefaultSortingOrder;
@@ -25,5 +26,11 @@ namespace Runtime.DefenderSystem.Model
         public List<int> UpgradeDamageIncrease;
         public List<float> LevelUpAttackIntervalReduction;
         public List<float> UpgradeAttackIntervalReduction;
+        
+        public GameObject BulletPrefab;
+        public GameObject BulletHitParticlePrefab;
+        public GameObject DamagePopupPrefab;
+        
+        public SoundData AttackSoundData;
     }
 }

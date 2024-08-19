@@ -1,4 +1,6 @@
-﻿using Runtime.Signal;
+﻿using System.Threading;
+using Cysharp.Threading.Tasks;
+using Runtime.Signal;
 using TMPro;
 using UnityEngine;
 using Zenject;
@@ -11,6 +13,8 @@ namespace Runtime.UISystem
         private TextMeshProUGUI timerText;
         
         private SignalBus _signalBus;
+        
+        private CancellationTokenSource _cancellationTokenSource;
 
         [Inject]
         private void Construct(SignalBus signalBus)
@@ -31,17 +35,20 @@ namespace Runtime.UISystem
         private void OnResumeTimer()
         {
             timerText.text = "1.30";
-            InvokeRepeating(nameof(ReduceTime), 1, 1f);
+            _cancellationTokenSource = new CancellationTokenSource();
+            StartTimerAsync(_cancellationTokenSource.Token).Forget();
         }
-        
-        private void UnsubscribeEvents()
+
+        private async UniTaskVoid StartTimerAsync(CancellationToken cancellationToken)
         {
-            _signalBus.Unsubscribe<ResumeTimerSignal>(OnResumeTimer);
-        }
-        
-        private void OnDisable()
-        {
-            UnsubscribeEvents();
+            while (true)
+            {
+                await UniTask.Delay(1000, cancellationToken: cancellationToken);
+                if (cancellationToken.IsCancellationRequested)
+                    return;
+                
+                ReduceTime();
+            }
         }
 
         private void ReduceTime()
@@ -55,7 +62,7 @@ namespace Runtime.UISystem
             {
                 if(minute == 0)
                 {
-                    CancelInvoke(nameof(ReduceTime));
+                    _cancellationTokenSource?.Cancel();
                     // TODO: Game Over
                     return;
                 }
@@ -78,6 +85,17 @@ namespace Runtime.UISystem
             }
             
             timerText.text = minute + "." + secondFirstIndex + secondSecondIndex;
+        }
+        
+        private void UnsubscribeEvents()
+        {
+            _signalBus.Unsubscribe<ResumeTimerSignal>(OnResumeTimer);
+            _cancellationTokenSource?.Cancel();
+        }
+        
+        private void OnDisable()
+        {
+            UnsubscribeEvents();
         }
     }
 }
